@@ -709,7 +709,7 @@
 <!-- EDIT UI -->
 <div id="edit-ui">
   <span id="edit-hint">לחצי על כל טקסט לעריכה</span>
-  <button id="save-btn">⬇ שמירה והורדה</button>
+  <button id="save-btn">💾 שמירה</button>
   <button id="edit-toggle">✏️ עריכת טקסט</button>
 </div>
 
@@ -758,59 +758,21 @@ editToggle.addEventListener('click', () => {
   saveBtn.style.display = isEditing ? 'flex' : 'none';
 });
 
-saveBtn.addEventListener('click', async () => {
-  /* build clean HTML */
-  const clone = document.documentElement.cloneNode(true);
-  clone.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
-  const ui = clone.querySelector('#edit-ui');
-  if (ui) ui.remove();
-  clone.querySelector('body')?.classList.remove('edit-active');
-  const html = '<!DOCTYPE html>\n' + clone.outerHTML;
+/* restore saved edits on load */
+(function restoreEdits() {
+  const saved = JSON.parse(localStorage.getItem('services_edits') || 'null');
+  if (!saved) return;
+  document.querySelectorAll(EDITABLE).forEach((el, i) => {
+    if (saved[i] != null) el.innerHTML = saved[i];
+  });
+})();
 
-  /* get / ask for GitHub token */
-  let token = localStorage.getItem('gh_edit_token');
-  if (!token) {
-    token = prompt('הכניסי GitHub Personal Access Token (נשמר רק בדפדפן שלך):');
-    if (!token) return;
-    localStorage.setItem('gh_edit_token', token.trim());
-    token = token.trim();
-  }
-
-  const origText = saveBtn.textContent;
-  saveBtn.textContent = '⏳ שומר...';
-  saveBtn.disabled = true;
-
-  try {
-    const REPO = 'smartgosari/balon-hamtzan';
-    const FILE = 'services.html';
-    const API  = `https://api.github.com/repos/${REPO}/contents/${FILE}`;
-    const HEADERS = { Authorization: `token ${token}`, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' };
-
-    /* get current SHA */
-    const getRes  = await fetch(API, { headers: HEADERS });
-    const getJson = await getRes.json();
-    if (!getRes.ok) throw new Error(getJson.message || 'שגיאה בקריאה');
-
-    /* base64-encode */
-    const encoded = btoa(unescape(encodeURIComponent(html)));
-
-    /* push updated file */
-    const putRes = await fetch(API, {
-      method: 'PUT',
-      headers: HEADERS,
-      body: JSON.stringify({ message: 'עדכון services.html דרך מצב עריכה', content: encoded, sha: getJson.sha })
-    });
-    if (!putRes.ok) { const e = await putRes.json(); throw new Error(e.message || 'שגיאה בשמירה'); }
-
-    saveBtn.textContent = '✓ נשמר! האתר מתעדכן תוך ~30 שניות';
-    setTimeout(() => { saveBtn.textContent = origText; saveBtn.disabled = false; }, 4000);
-  } catch (err) {
-    console.error(err);
-    localStorage.removeItem('gh_edit_token');
-    saveBtn.textContent = origText;
-    saveBtn.disabled = false;
-    alert('שגיאה: ' + err.message + '\nהטוקן נמחק — נסי שוב.');
-  }
+saveBtn.addEventListener('click', () => {
+  const data = {};
+  document.querySelectorAll(EDITABLE).forEach((el, i) => { data[i] = el.innerHTML; });
+  localStorage.setItem('services_edits', JSON.stringify(data));
+  saveBtn.textContent = '✓ נשמר!';
+  setTimeout(() => { saveBtn.textContent = '💾 שמירה'; }, 1800);
 });
 </script>
 
