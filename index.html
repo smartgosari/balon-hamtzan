@@ -367,6 +367,15 @@
       font-size:1rem;
     }
 
+    /* ── FOG CANVAS ── */
+    .fog-canvas {
+      position:absolute; top:0; left:0;
+      width:100%; height:100%;
+      z-index:2; pointer-events:none;
+    }
+    .ccard-img { cursor:crosshair; }
+    .ccard-num { z-index:3; }
+
     /* ── CTA STRIP ── */
     .cta-strip { background:var(--yellow); }
     .cta-inner {
@@ -899,6 +908,77 @@ document.querySelectorAll('.nav-logo-btn, .cta-form button, .hero-card').forEach
   el.addEventListener('mouseleave', ()=>{ el.style.transform=''; });
 });
 
+
+/* ── FOG REVEAL ── */
+(function initFog() {
+  if (window.innerWidth < 768) return;
+
+  document.querySelectorAll('.ccard-img').forEach(wrap => {
+    const canvas = document.createElement('canvas');
+    canvas.className = 'fog-canvas';
+    wrap.appendChild(canvas);
+    const ctx = canvas.getContext('2d');
+    let rafId = null, refogging = false;
+
+    function resize() {
+      canvas.width  = wrap.offsetWidth;
+      canvas.height = wrap.offsetHeight;
+      fillFog();
+    }
+
+    function fillFog() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = 'rgba(208,222,240,0.90)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < 18; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const r = 28 + Math.random() * 52;
+        const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+        g.addColorStop(0, 'rgba(255,255,255,.22)');
+        g.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+
+    wrap.addEventListener('mousemove', e => {
+      if (refogging) { cancelAnimationFrame(rafId); refogging = false; }
+      const rect = wrap.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const R = 70;
+      ctx.globalCompositeOperation = 'destination-out';
+      const grd = ctx.createRadialGradient(x, y, 0, x, y, R);
+      grd.addColorStop(0,    'rgba(0,0,0,1)');
+      grd.addColorStop(0.55, 'rgba(0,0,0,.88)');
+      grd.addColorStop(1,    'rgba(0,0,0,0)');
+      ctx.fillStyle = grd;
+      ctx.beginPath();
+      ctx.arc(x, y, R, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalCompositeOperation = 'source-over';
+    });
+
+    wrap.addEventListener('mouseleave', () => {
+      refogging = true;
+      let f = 0;
+      function step() {
+        if (!refogging) return;
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.fillStyle = 'rgba(208,222,240,.065)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        f++;
+        if (f < 55) rafId = requestAnimationFrame(step);
+        else { fillFog(); refogging = false; }
+      }
+      rafId = requestAnimationFrame(step);
+    });
+  });
+})();
 
 /* ── FORM ── */
 function handleSubmit(e) {
