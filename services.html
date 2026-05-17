@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>שירותים — Smart Go Drive</title>
+  <style>
+    @font-face { font-family:'Leon';   src:url('פונטים/Leon-Bold.otf')          format('opentype'); font-weight:700 900; font-display:swap; }
+    @font-face { font-family:'Leon';   src:url('פונטים/Leon-Regular.otf')       format('opentype'); font-weight:300 500; font-display:swap; }
+    @font-face { font-family:'Almoni'; src:url('פונטים/almoni-bold-aaa.otf')    format('opentype'); font-weight:700 900; font-display:swap; }
+    @font-face { font-family:'Almoni'; src:url('פונטים/almoni-regular-aaa.otf') format('opentype'); font-weight:300 500; font-display:swap; }
+
+    :root {
+      --bg:     #f5f0e8;
+      --purple: #3b3b97;
+      --teal:   #74d4d9;
+      --yellow: #fed332;
+      --pink:   #e8508a;
+      --white:  #ffffff;
+      --dark:   #16163a;
+      --border: rgba(59,59,151,0.12);
+      --f-head: 'Leon',   serif;
+      --f-body: 'Almoni', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family: var(--f-body);
+      background: var(--bg);
+      color: var(--purple);
+      direction: rtl;
+      text-align: right;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position:fixed; top:0; width:100%; z-index:100;
+      background:rgba(245,240,232,0.92);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--border);
+    }
+    .nav-inner {
+      max-width:1200px; margin:0 auto;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:.85rem 2.5rem;
+    }
+    .nav-links { display:flex; gap:1.75rem; list-style:none; }
+    .nav-links a {
+      font-size:.96rem; font-weight:700;
+      color:var(--purple); text-decoration:none;
+      opacity:.8; transition:opacity .2s;
+    }
+    .nav-links a:hover { opacity:1; }
+    .nav-links a.active { opacity:1; border-bottom:2px solid var(--purple); padding-bottom:1px; }
+    .nav-logo-btn {
+      background:var(--dark); color:var(--white);
+      font-family:var(--f-body); font-weight:700; font-size:.85rem;
+      padding:.5rem 1.25rem; border-radius:2rem;
+      text-decoration:none; letter-spacing:.05em;
+      border:2px solid var(--dark);
+      box-shadow:3px 3px 0 var(--purple);
+      transition:transform .15s, box-shadow .15s;
+    }
+    .nav-logo-btn:hover { transform:translate(-2px,-2px); box-shadow:5px 5px 0 var(--purple); }
+    .nav-version { font-size:.72rem; color:var(--purple); opacity:.45; font-family:var(--f-body); }
+
+    /* ── HERO ── */
+    .page-hero {
+      padding-top:9rem; padding-bottom:5rem;
+      max-width:1200px; margin:0 auto;
+      padding-right:2.5rem; padding-left:2.5rem;
+    }
+    .page-hero-eyebrow {
+      font-size:.75rem; font-weight:500;
+      color:var(--purple); opacity:.5;
+      letter-spacing:.06em; text-transform:uppercase;
+      margin-bottom:1.5rem;
+    }
+    .page-hero-title {
+      font-family:var(--f-head); font-weight:900;
+      font-size:clamp(3.5rem,8vw,7rem);
+      line-height:1; letter-spacing:-.04em;
+      color:var(--purple);
+      margin-bottom:2rem;
+    }
+    .page-hero-body {
+      max-width:680px;
+      font-size:1.05rem; line-height:1.8;
+      opacity:.68;
+    }
+    .page-hero-cta-label {
+      margin-top:3.5rem;
+      font-family:var(--f-head); font-weight:700;
+      font-size:clamp(1.6rem,3.5vw,2.4rem);
+      letter-spacing:-.02em;
+    }
+
+    /* ── MINI TICKER ── */
+    .mini-ticker {
+      background:var(--purple);
+      padding:.75rem 0;
+      overflow:hidden; white-space:nowrap;
+    }
+    .mini-ticker-row { display:inline-flex; animation:ticker 24s linear infinite; }
+    .mini-ticker-item {
+      font-family:var(--f-head); font-weight:700;
+      font-size:1rem; color:rgba(245,240,232,.70);
+      padding:0 2rem; letter-spacing:.04em;
+    }
+
+    /* ── DEPT SECTION ── */
+    .dept-intro { padding:4.5rem 0 3rem; border-top:2px solid var(--border); }
+    .dept-intro.teal-bg { background:rgba(116,212,217,.07); }
+    .dept-intro.pink-bg  { background:rgba(232,80,138,.05);  }
+    .dept-intro-inner {
+      max-width:1200px; margin:0 auto;
+      padding:0 2.5rem;
+    }
+    .dept-tag {
+      display:inline-flex; align-items:center; gap:.5rem;
+      font-size:.7rem; font-weight:700;
+      letter-spacing:.14em; text-transform:uppercase;
+      border:1.5px solid currentColor;
+      padding:.3rem .9rem; border-radius:2rem;
+      margin-bottom:1.75rem;
+    }
+    .dept-tag.smart { color:var(--dark);   border-color:var(--dark);  }
+    .dept-tag.go    { color:var(--teal);   border-color:var(--teal);  }
+    .dept-tag.drive { color:var(--pink);   border-color:var(--pink);  }
+
+    .dept-header {
+      display:flex; align-items:flex-end;
+      justify-content:space-between;
+      gap:3rem; flex-wrap:wrap;
+    }
+    .dept-big-title {
+      font-family:var(--f-head); font-weight:900;
+      font-size:clamp(3.5rem,9vw,8rem);
+      line-height:.92; letter-spacing:-.04em;
+      color:var(--purple);
+    }
+    .dept-desc {
+      max-width:320px;
+      font-size:.95rem; line-height:1.7;
+      opacity:.62; padding-bottom:.5rem;
+    }
+
+    /* ── SERVICES GRID ── */
+    .services-grid {
+      max-width:1200px; margin:0 auto;
+      padding:0 2.5rem 5rem;
+    }
+    .grid-2 { display:grid; grid-template-columns:repeat(2,1fr); gap:1.25rem; }
+    .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; }
+
+    /* ── SERVICE CARD ── */
+    .scard {
+      background:var(--white);
+      border:2px solid var(--purple);
+      border-radius:1rem;
+      overflow:hidden;
+      box-shadow:5px 5px 0 var(--purple);
+      transition:transform .15s, box-shadow .15s;
+      display:flex; flex-direction:column;
+    }
+    .scard:hover { transform:translate(-3px,-3px); box-shadow:8px 8px 0 var(--purple); }
+
+    .scard-stripe { height:5px; }
+    .scard-stripe.smart { background:var(--dark); }
+    .scard-stripe.go    { background:var(--teal); }
+    .scard-stripe.drive { background:var(--pink); }
+
+    .scard-body {
+      padding:1.75rem;
+      display:flex; flex-direction:column;
+      gap:.85rem; flex:1;
+    }
+    .scard-label {
+      font-size:.68rem; font-weight:700;
+      letter-spacing:.12em; text-transform:uppercase;
+      opacity:.4;
+    }
+    .scard-title {
+      font-family:var(--f-head); font-weight:700;
+      font-size:1.45rem; line-height:1.15;
+      letter-spacing:-.025em;
+    }
+    .scard-tagline {
+      font-size:.86rem; font-weight:700;
+      opacity:.52; line-height:1.45;
+      padding-right:.85rem;
+      border-right:2.5px solid var(--border);
+    }
+    .scard-desc {
+      font-size:.88rem; line-height:1.7;
+      opacity:.62; flex:1;
+    }
+    .scard-price {
+      display:flex; align-items:baseline; gap:.4rem; flex-wrap:wrap;
+      padding-top:.85rem;
+      border-top:1px solid var(--border);
+      margin-top:auto;
+    }
+    .scard-price-label {
+      font-size:.67rem; font-weight:700;
+      letter-spacing:.1em; text-transform:uppercase;
+      opacity:.4;
+    }
+    .scard-price-value {
+      font-family:var(--f-head); font-weight:900;
+      font-size:1.3rem; letter-spacing:-.03em;
+    }
+    .scard-price-unit {
+      font-size:.78rem; opacity:.5;
+    }
+    .scard-price-multi {
+      font-size:.83rem; line-height:1.65; opacity:.65;
+      width:100%; padding-top:.25rem;
+    }
+    .scard-price-multi strong { font-weight:700; color:var(--purple); opacity:1; }
+
+    .scard-cta {
+      display:inline-flex; align-items:center; gap:.55rem;
+      background:var(--dark); color:var(--white);
+      font-family:var(--f-body); font-weight:700; font-size:.84rem;
+      padding:.65rem 1.2rem; border-radius:2rem;
+      text-decoration:none; letter-spacing:.02em;
+      border:2px solid var(--dark);
+      box-shadow:3px 3px 0 var(--purple);
+      transition:transform .15s, box-shadow .15s;
+      align-self:flex-start;
+      margin-top:.35rem;
+    }
+    .scard-cta:hover { transform:translate(-2px,-2px); box-shadow:5px 5px 0 var(--purple); }
+    .scard-cta svg { width:11px; height:11px; stroke:currentColor; fill:none; stroke-width:2.2; flex-shrink:0; }
+
+    /* ── GAP BETWEEN GRIDS IN DRIVE ── */
+    .grid-gap { margin-bottom:1.25rem; }
+
+    /* ── LOST SECTION (bottom CTA) ── */
+    .lost-section { background:var(--yellow); }
+    .lost-inner {
+      max-width:1200px; margin:0 auto;
+      padding:5rem 2.5rem;
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:5rem; align-items:start;
+    }
+    .lost-title {
+      font-family:var(--f-head); font-weight:900;
+      font-size:clamp(2.8rem,6vw,5.5rem);
+      line-height:.93; letter-spacing:-.04em;
+      color:var(--dark);
+    }
+    .lost-sub {
+      font-size:1rem; line-height:1.75;
+      color:rgba(22,22,58,.62);
+      margin-top:1.5rem; max-width:400px;
+    }
+    .contact-form { display:flex; flex-direction:column; gap:1rem; }
+    .contact-field {
+      background:var(--white);
+      border:2px solid var(--dark);
+      border-radius:.75rem;
+      padding:.75rem 1.1rem;
+      box-shadow:3px 3px 0 var(--dark);
+      transition:transform .15s, box-shadow .15s;
+    }
+    .contact-field:focus-within { transform:translate(-2px,-2px); box-shadow:5px 5px 0 var(--dark); }
+    .contact-field input {
+      width:100%; background:none; border:none; outline:none;
+      font-family:var(--f-body); font-size:.95rem;
+      color:var(--dark); text-align:right; padding:.3rem 0;
+    }
+    .contact-field input::placeholder { color:rgba(22,22,58,.35); }
+    .contact-submit {
+      background:var(--purple); color:var(--white);
+      font-family:var(--f-body); font-weight:700; font-size:.95rem;
+      border:2px solid var(--dark); border-radius:.75rem;
+      padding:.85rem 1.75rem;
+      cursor:pointer;
+      box-shadow:3px 3px 0 var(--dark);
+      transition:transform .15s, box-shadow .15s, background .2s;
+      text-align:center; letter-spacing:.02em;
+    }
+    .contact-submit:hover { background:var(--dark); transform:translate(-2px,-2px); box-shadow:5px 5px 0 var(--dark); }
+    .contact-submit:disabled { opacity:.7; cursor:default; }
+    .form-fine { font-size:.74rem; color:rgba(22,22,58,.38); text-align:center; }
+
+    /* ── FOOTER ── */
+    footer { background:var(--dark); }
+    .footer-inner {
+      max-width:1200px; margin:0 auto;
+      padding:2rem 2.5rem;
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .footer-brand { font-family:var(--f-head); font-weight:700; color:var(--white); font-size:1.2rem; }
+    .footer-brand span { display:block; font-family:var(--f-body); font-size:.75rem; color:rgba(255,255,255,.32); font-weight:400; margin-top:.1rem; }
+    .footer-links { display:flex; gap:2rem; }
+    .footer-links a { font-size:.82rem; color:rgba(255,255,255,.38); text-decoration:none; transition:color .2s; }
+    .footer-links a:hover { color:var(--white); }
+    .footer-copy { font-size:.75rem; color:rgba(255,255,255,.18); }
+
+    /* ── REVEAL ── */
+    .reveal { opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease; }
+    .reveal.vis { opacity:1; transform:translateY(0); }
+    .reveal.d1 { transition-delay:.1s; }
+    .reveal.d2 { transition-delay:.2s; }
+    .reveal.d3 { transition-delay:.3s; }
+    .reveal.d4 { transition-delay:.4s; }
+    .reveal.d5 { transition-delay:.5s; }
+
+    /* ── KEYFRAME ── */
+    @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* ── MOBILE ── */
+    @media(max-width:768px) {
+      .nav-inner { padding:.85rem 1.25rem; }
+      .nav-links  { display:none; }
+      .page-hero  { padding:7rem 1.25rem 3.5rem; }
+      .dept-intro-inner,
+      .services-grid { padding-right:1.25rem; padding-left:1.25rem; }
+      .services-grid  { padding-bottom:3rem; }
+      .dept-header    { flex-direction:column; gap:1rem; }
+      .grid-2, .grid-3 { grid-template-columns:1fr; }
+      .lost-inner { grid-template-columns:1fr; gap:2.5rem; padding:3.5rem 1.25rem; }
+      .footer-inner { flex-direction:column; gap:1.25rem; text-align:center; padding:2rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-version">גרסה 01 — אביב 2026</div>
+    <ul class="nav-links">
+      <li><a href="index.html">בית</a></li>
+      <li><a href="index.html#campaigns">מה יש בפנים</a></li>
+      <li><a href="services.html" class="active">שירותים</a></li>
+      <li><a href="#contact">ליצור קשר</a></li>
+    </ul>
+    <a href="#contact" class="nav-logo-btn">בלון / חמצן</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <p class="page-hero-eyebrow reveal">Smart Go Drive · שירותים</p>
+  <h1 class="page-hero-title reveal d1">לאן העסק<br>שלך נוסע<br>היום?</h1>
+  <p class="page-hero-body reveal d2">
+    אם את מרגישה שהעסק שלך נתקע ב"ניוטרל" והשיווק הפך לברדק מתיש, הגעת למקום הנכון.
+    ב-Smart Go Drive אנחנו לא מוכרות "פתרונות קסם". אנחנו סוכנות בוטיק שמזרימה חמצן נקי לעסק שלך, בשלוש פעימות: אסטרטגיה חכמה, ארט שעוצר את הגלילה, וקריאייטיב שמייצר מכירות.
+  </p>
+  <p class="page-hero-cta-label reveal d3">באיזו מחלקה את צריכה אותי היום?</p>
+</section>
+
+<!-- MINI TICKER -->
+<div class="mini-ticker">
+  <div class="mini-ticker-row">
+    <span class="mini-ticker-item">SMART ✦</span>
+    <span class="mini-ticker-item">GO ✦</span>
+    <span class="mini-ticker-item">DRIVE ✦</span>
+    <span class="mini-ticker-item">אסטרטגיה ✦</span>
+    <span class="mini-ticker-item">עיצוב ✦</span>
+    <span class="mini-ticker-item">קריאייטיב ✦</span>
+    <span class="mini-ticker-item">SMART ✦</span>
+    <span class="mini-ticker-item">GO ✦</span>
+    <span class="mini-ticker-item">DRIVE ✦</span>
+    <span class="mini-ticker-item">אסטרטגיה ✦</span>
+    <span class="mini-ticker-item">עיצוב ✦</span>
+    <span class="mini-ticker-item">קריאייטיב ✦</span>
+  </div>
+</div>
+
+
+<!-- ═══════════ 🧠 SMART ═══════════ -->
+<div class="dept-intro">
+  <div class="dept-intro-inner">
+    <div class="dept-tag smart reveal">🧠 &nbsp;SMART</div>
+    <div class="dept-header">
+      <h2 class="dept-big-title reveal d1">המוח<br>והאסטרטגיה.</h2>
+      <p class="dept-desc reveal d2">לפני שלוחצים על הגז, צריך מפה. המחלקה הזו מיועדת למי שרוצה לעשות סדר בבלגן ולבנות תשתית יציבה, רווחית וחכמה.</p>
+    </div>
+  </div>
+</div>
+<div class="services-grid">
+  <div class="grid-2">
+
+    <div class="scard reveal">
+      <div class="scard-stripe smart"></div>
+      <div class="scard-body">
+        <div class="scard-label">ליווי אסטרטגי מלא</div>
+        <h3 class="scard-title">GPS עסקי</h3>
+        <p class="scard-tagline">הדרך שלך למותג יציב</p>
+        <p class="scard-desc">8 מפגשי עומק שבהם אנחנו הופכות את החזון שלך לפרקטיקה. בלי תיאוריות — רק עבודה ממוקדת על המודל העסקי שלך, צעד אחר צעד.</p>
+        <div class="scard-price">
+          <span class="scard-price-label">השקעה</span>
+          <span class="scard-price-value">8,000 ש"ח</span>
+        </div>
+        <a href="#contact" class="scard-cta">
+          בואי נתכנן את מסלול הנסיעה
+          <svg viewBox="0 0 14 14"><path d="M2 12L12 2M12 2H5M12 2v7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="scard reveal d1">
+      <div class="scard-stripe smart"></div>
+      <div class="scard-body">
+        <div class="scard-label">פגישת ייעוץ ופיצוח</div>
+        <h3 class="scard-title">עצירת התרעננות</h3>
+        <p class="scard-tagline">פגישה אחת שמחזירה שליטה</p>
+        <p class="scard-desc">פגישה ממוקדת אחת כדי לפתוח את הפלונטר. נשב יחד, ננתח את האתגרים ונצא עם החלטות ברורות שיחזירו לך את השליטה לידיים.</p>
+        <div class="scard-price">
+          <span class="scard-price-label">השקעה</span>
+          <span class="scard-price-value">1,200 ש"ח</span>
+        </div>
+        <a href="#contact" class="scard-cta">
+          אני צריכה כיוון מדויק
+          <svg viewBox="0 0 14 14"><path d="M2 12L12 2M12 2H5M12 2v7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════ 🟢 GO ═══════════ -->
+<div class="dept-intro teal-bg">
+  <div class="dept-intro-inner">
+    <div class="dept-tag go reveal">🟢 &nbsp;GO</div>
+    <div class="dept-header">
+      <h2 class="dept-big-title reveal d1">סטודיו<br>לארט<br>ועיצוב.</h2>
+      <p class="dept-desc reveal d2">האור הירוק שלך לצאת לעולם. אסטרטגיה טובה חייבת אריזה שקשה להתעלם ממנה. כאן אנחנו מייצרות את הנראות שנותנת לעסק שלך חמצן ויזואלי.</p>
+    </div>
+  </div>
+</div>
+<div class="services-grid">
+  <div class="grid-3">
+
+    <div class="scard reveal">
+      <div class="scard-stripe go"></div>
+      <div class="scard-body">
+        <div class="scard-label">מיתוג קומפלט</div>
+        <h3 class="scard-title">החבילה השלמה</h3>
+        <p class="scard-tagline">לברוא את המותג שלך מחדש</p>
+        <p class="scard-desc">שפה ויזואלית מלאה שמשדרת יוקרה, בידול, וגורמת ללקוחות שלך להבין מיד שאת בליגה אחרת.</p>
+        <div class="scard-price">
+          <span class="scard-price-label">השקעה</span>
+          <span class="scard-price-value">8,000 ש"ח</span>
+        </div>
+        <a href="#contact" class="scard-cta">
+          תארזי לי את העסק מחדש
+          <svg viewBox="0 0 14 14"><path d="M2 12L12 2M12 2H5M12 2v7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="scard reveal d1">
+      <div class="scard-stripe go"></div>
+      <div class="scard-body">
+        <div class="scard-label">סדרת 3 מודעות</div>
+        <h3 class="scard-title">קמפיין פרימיום</h3>
+        <p class="scard-tagline">מעטפת ויזואלית מבריקה</p>
+        <p class="scard-desc">3 מודעות קריאייטיב מעוצבות שיעצרו את הגלילה בפיד ויעשו את ה"שיבוש" החיובי שאת צריכה.</p>
+        <div class="scard-price">
+          <span class="scard-price-label">השקעה</span>
+          <span class="scard-price-value">8,000 ש"ח</span>
+        </div>
+        <a href="#contact" class="scard-cta">
+          אני רוצה בולטות מקסימלית
+          <svg viewBox="0 0 14 14"><path d="M2 12L12 2M12 2H5M12 2v7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="scard reveal d2">
+      <div class="scard-stripe go"></div>
+      <div class="scard-body">
+        <div class="scard-label">עיצוב מודעות וריטיינר</div>
+        <h3 class="scard-title">תדלוק שוטף</h3>
+        <p class="scard-tagline">נראות יומיומית מנצחת</p>
+        <p class="scard-desc">עיצוב מודעה בודדת חדה כתער, או ריטיינר עיצוב חודשי לשקט הנפשי שלך — מבלי לשבור את הראש.</p>
+        <div class="scard-price">
+          <span class="scard-price-label">השקעה</span>
+          <span class="scard-price-value">1,200 ש"ח</span>
+          <span class="scard-price-unit">למודעה</span>
+        </div>
+        <a href="#contact" class="scard-cta">
+          תעשי לי יפה בפיד
+          <svg viewBox="0 0 14 14"><path d="M2 12L12 2M12 2H5M12 2v7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════ 🚀 DRIVE ═══════════ -->
+<div class="dept-intro pink-bg">
+  <div class="dept-intro-inner">
+    <div class="dept-tag drive reveal">🚀 &nbsp;DRIVE</div>
+    <div class="dept-header">
+      <h2 class="dept-big-title reveal d1">קריאייטיב,<br>קופי<br>ומיילים.</h2>
+      <p class="dept-desc reveal d2">המנוע, הדלק, הדרייב. העיצוב מושך אותם פנימה, אבל המילים סוגרות את העסקה. כאן אנחנו כותבות מסרים שמעירים את הלקוחות שלך ודוחפים לפעולה.</p>
+    </div>
+  </div>
+</div>
+<div class="services-grid">
+
+  <div class="grid-2 grid-gap">
+
+    <div class="scard reveal">
+      <div class="scard-stripe drive"></div>
+      <div class="scard-body">
+        <div class="scard-label">פגישת קריאייטיב + מסמך רעיונות</div>
+        <h3 class="scard-title">ערכת עזרה ראשונה</h3>
+        <p class="scard-tagline">מוצר חדירה מהיר</p>
+        <p class="scard-desc">חצי שעה של סיעור מוחות יחד איתי, שבסיומה את מקבלת מסמך עם רעיונות ואסטרטגיה מותאמים אישית. היישום והכתיבה עלייך.</p>
+        <div class="scard-price">
+          <span class="scard-price-label">השקעה</span>
+          <span class="scard-price-value">600 ש"ח</span>
+        </div>
+        <a href="#contact" class="scard-cta">
+          תני לי בוסט של השראה
+          <svg viewBox="0 0 14 14"><path d="M2 12L12 2M12 2H5M12 2v7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="scard reveal d1">
+      <div class="scard-stripe drive"></div>
+      <div class="scard-body">
+        <div class="scard-label">תוכנית קריאייטיב ארוכת טווח</div>
+        <h3 class="scard-title">מפה לחצי שנה קדימה</h3>
+        <p class="scard-tagline">מוצר פרימיום</p>
+        <p class="scard-desc">בניית קונספט ואסטרטגיה קריאייטיבית לחצי שנה, כולל כתיבת מסרי הבסיס שמהם תוכלי להמשיך לעבוד בעצמה.</p>
+        <div class="scard-price">
+          <span class="scard-price-label">השקעה</span>
+          <span class="scard-price-value">4,250 ש"ח</span>
+        </div>
+        <a href="#contact" class="scard-cta">
+          אני רוצה שקט לחצי שנה
+          <svg viewBox="0 0 14 14"><path d="M2 12L12 2M12 2H5M12 2v7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="grid-3">
+
+    <div class="scard reveal">
+      <div class="scard-stripe drive"></div>
+      <div class="scard-body">
+        <div class="scard-label">סדרות מסרים · השקות וקמפיינים</div>
+        <h3 class="scard-title">מכונת המכירות</h3>
+        <p class="scard-tagline">מייל אחד לא מוכר. סדרה כן</p>
+        <p class="scard-desc">סדרה ממוקדת של מיילים עם מטרה אחת — למכור. פרויקט נקודתי עם התחלה וסוף ברורים.</p>
+        <div class="scard-price" style="flex-direction:column;align-items:flex-start;gap:.3rem;">
+          <span class="scard-price-label">השקעה</span>
+          <div class="scard-price-multi">
+            4 מיילים &mdash; <strong>1,500 ש"ח</strong><br>
+            8 מיילים &mdash; <strong>2,650 ש"ח</strong><br>
+            12 מיילים &mdash; <strong>3,750 ש"ח</strong>
+          </div>
+        </div>
+        <a href="#contact" class="scard-cta">
+          אני צריכה מיילים שמוכרים
+          <svg viewBox="0 0 14 14"><path d="M2 12L12 2M12 2H5M12 2v7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="scard reveal d1">
+      <div class="scard-stripe drive"></div>
+      <div class="scard-body">
+        <div class="scard-label">ריטיינר מיילים חודשי</div>
+        <h3 class="scard-title">טייס אוטומטי</h3>
+        <p class="scard-tagline">שקט נפשי חודשי</p>
+        <p class="scard-desc">שירות חודשי קבוע של כתיבת מיילים מבריקים לרשימה שלך. אני כותבת, הלקוחות שלך קוראים, העסק שלך נושם.</p>
+        <div class="scard-price" style="flex-direction:column;align-items:flex-start;gap:.3rem;">
+          <span class="scard-price-label">השקעה חודשית</span>
+          <div class="scard-price-multi">
+            2 מיילים &mdash; <strong>700 ש"ח</strong><br>
+            4 מיילים &mdash; <strong>1,250 ש"ח</strong><br>
+            8 מיילים &mdash; <strong>2,350 ש"ח</strong>
+          </div>
+        </div>
+        <a href="#contact" class="scard-cta">
+          קחי ממני את עול הכתיבה
+          <svg viewBox="0 0 14 14"><path d="M2 12L12 2M12 2H5M12 2v7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="scard reveal d2">
+      <div class="scard-stripe drive"></div>
+      <div class="scard-body">
+        <div class="scard-label">קורסים דיגיטליים</div>
+        <h3 class="scard-title">בית ספר לנהיגה קריאייטיבית</h3>
+        <p class="scard-tagline">ללמוד להחזיק את ההגה</p>
+        <p class="scard-desc">קורסים פרקטיים שילמדו אותך לכתוב ולייצר קריאייטיב שאי אפשר להתעלם ממנו.</p>
+        <div class="scard-price" style="flex-direction:column;align-items:flex-start;gap:.3rem;">
+          <span class="scard-price-label">השקעה</span>
+          <div class="scard-price-multi">
+            קורס דיגיטלי &mdash; <strong>600 ש"ח</strong><br>
+            קורס חי בליווי קבוצתי &mdash; <strong>2,100 ש"ח</strong>
+          </div>
+        </div>
+        <a href="#contact" class="scard-cta">
+          אני רוצה ללמוד לעשות זאת בעצמי
+          <svg viewBox="0 0 14 14"><path d="M2 12L12 2M12 2H5M12 2v7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════ CONTACT ═══════════ -->
+<section class="lost-section" id="contact">
+  <div class="lost-inner">
+    <div class="reveal">
+      <h2 class="lost-title">קצת<br>הלכת<br>לאיבוד?</h2>
+      <p class="lost-sub">
+        זה טבעי לגמרי. לפעמים קשה לדעת אם חסרה לך אסטרטגיה, נראות או קופירייטינג.
+        תשאירי לי פה פרטים (בלי שום התחייבות), ונבדוק יחד איזו מחלקה תזרים את החמצן המדויק שהעסק שלך צריך עכשיו.
+      </p>
+    </div>
+    <form class="contact-form reveal d2" onsubmit="handleContact(event)">
+      <div class="contact-field">
+        <input type="text" placeholder="איך קוראים לך?" required autocomplete="name">
+      </div>
+      <div class="contact-field">
+        <input type="tel" placeholder="רוצה שנדבר? (נייד)" autocomplete="tel">
+      </div>
+      <button type="submit" class="contact-submit" id="contact-btn">
+        יאללה, בואי נדבר ←
+      </button>
+      <p class="form-fine">ללא התחייבות · ללא ספאם</p>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      Smart Go Drive
+      <span>by SmartGo · smartgo.co.il</span>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">בלון חמצן</a>
+      <a href="#">פרטיות</a>
+      <a href="https://smartgo.co.il">SmartGo</a>
+    </div>
+    <p class="footer-copy">© 2025 SmartGo</p>
+  </div>
+</footer>
+
+<script>
+/* ── REVEAL ── */
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold:.08 });
+document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+
+/* ── MAGNETIC ── */
+document.querySelectorAll('.scard-cta, .nav-logo-btn, .contact-submit').forEach(el => {
+  el.addEventListener('mousemove', e => {
+    const r = el.getBoundingClientRect();
+    const x = (e.clientX - r.left - r.width/2) * .18;
+    const y = (e.clientY - r.top - r.height/2) * .18;
+    el.style.transform = `translate(${x}px,${y}px)`;
+  });
+  el.addEventListener('mouseleave', () => { el.style.transform = ''; });
+});
+
+/* ── FORM ── */
+function handleContact(e) {
+  e.preventDefault();
+  const btn = document.getElementById('contact-btn');
+  btn.textContent = 'תודה! אחזור אלייך בהקדם 💜';
+  btn.style.background = 'var(--dark)';
+  btn.disabled = true;
+  e.target.querySelectorAll('input').forEach(i => i.disabled = true);
+}
+</script>
+</body>
+</html>
