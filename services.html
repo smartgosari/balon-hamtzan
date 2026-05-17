@@ -706,6 +706,13 @@
   </div>
 </footer>
 
+<!-- EDIT UI -->
+<div id="edit-ui">
+  <span id="edit-hint">לחצי על כל טקסט לעריכה</span>
+  <button id="save-btn">⬇ שמירה והורדה</button>
+  <button id="edit-toggle">✏️ עריכת טקסט</button>
+</div>
+
 <script>
 /* ── REVEAL ── */
 const revObs = new IntersectionObserver(entries => {
@@ -737,8 +744,8 @@ function handleContact(e) {
 /* ── EDIT MODE ── */
 const EDITABLE = 'h1,h2,h3,p,.scard-label,.scard-tagline,.scard-price-value,.scard-price-unit,.page-hero-eyebrow,.dept-desc,.lost-sub,.lost-title';
 let isEditing = false;
-const editToggle = document.getElementById('edit-toggle');
-const saveBtn    = document.getElementById('save-btn');
+const editToggle = document.querySelector('#edit-toggle');
+const saveBtn    = document.querySelector('#save-btn');
 
 editToggle.addEventListener('click', () => {
   isEditing = !isEditing;
@@ -766,11 +773,5 @@ saveBtn.addEventListener('click', () => {
 });
 </script>
 
-<!-- EDIT UI -->
-<div id="edit-ui">
-  <span id="edit-hint">לחצי על כל טקסט לעריכה</span>
-  <button id="save-btn">⬇ שמירה והורדה</button>
-  <button id="edit-toggle">✏️ עריכת טקסט</button>
-</div>
 </body>
 </html>
