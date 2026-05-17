@@ -317,9 +317,11 @@
 
     .ccard-body {
       padding:1.5rem;
-      display:flex; flex-direction:column; gap:1rem;
+      display:flex; flex-direction:column;
       flex:1;
     }
+    .ccard-body .ccard-brand-row { margin-bottom:.85rem; }
+    .ccard-body .ccard-headline  { margin-bottom:.5rem; }
     .ccard-brand-row {
       display:flex; align-items:center; justify-content:space-between;
     }
@@ -338,11 +340,33 @@
       font-family:var(--f-head); font-weight:700;
       font-size:1.1rem; line-height:1.35;
     }
+    .ccard-toggle {
+      display:flex; align-items:center; justify-content:space-between;
+      background:none; border:none; border-top:1px solid var(--border);
+      width:100%; padding:.65rem 0; cursor:pointer;
+      font-family:var(--f-body); font-size:.8rem; font-weight:700;
+      color:var(--purple); opacity:.5;
+      direction:rtl; text-align:right;
+      transition:opacity .2s;
+    }
+    .ccard-toggle:hover { opacity:.85; }
+    .ccard-toggle svg { transition:transform .35s ease; flex-shrink:0; }
+    .ccard.open .ccard-toggle svg { transform:rotate(180deg); }
+    .ccard.open .ccard-toggle { opacity:.8; }
+
+    .ccard-expand {
+      display:grid; grid-template-rows:0fr;
+      opacity:0;
+      transition:grid-template-rows .4s ease, opacity .3s ease;
+    }
+    .ccard-expand > div { overflow:hidden; }
+    .ccard.open .ccard-expand { grid-template-rows:1fr; opacity:1; }
+
     .ccard-insight {
       font-size:.88rem; line-height:1.65;
       opacity:.7;
-      padding-top:.5rem;
-      border-top:1px solid var(--border);
+      padding-top:.85rem;
+      margin-bottom:.85rem;
     }
     .ccard-question {
       display:flex; align-items:flex-start; gap:.6rem;
@@ -683,11 +707,17 @@
           <span class="ccard-tag">יום האם</span>
         </div>
         <h3 class="ccard-headline">מדוע מותג היוקרה הקפדני בעולם פרסם ציור קשקוש של ילד ביום האם?</h3>
-        <p class="ccard-insight">שאנל ויתרה על השלמות העיצובית כדי להרוויח משהו חזק יותר: אותנטיות. שלמות פלסטית מרחיקה אנשים — אנושיות וחוסר-שלמות מקרבים אותם.</p>
-        <div class="ccard-question">
-          <div class="ccard-q-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01" stroke-linecap="round"/></svg></div>
-          <p class="ccard-q-text">כמה פעמים דחית השקה כי "העיצוב עדיין לא מושלם"? מה יקרה אם תפרסמי אותה היום — מקושקשת ואמיתית?</p>
-        </div>
+        <button class="ccard-toggle" aria-expanded="false">
+          <span>קראי עוד</span>
+          <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="ccard-expand"><div>
+          <p class="ccard-insight">שאנל ויתרה על השלמות העיצובית כדי להרוויח משהו חזק יותר: אותנטיות. שלמות פלסטית מרחיקה אנשים — אנושיות וחוסר-שלמות מקרבים אותם.</p>
+          <div class="ccard-question">
+            <div class="ccard-q-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01" stroke-linecap="round"/></svg></div>
+            <p class="ccard-q-text">כמה פעמים דחית השקה כי "העיצוב עדיין לא מושלם"? מה יקרה אם תפרסמי אותה היום — מקושקשת ואמיתית?</p>
+          </div>
+        </div></div>
       </div>
     </article>
 
@@ -714,11 +744,17 @@
           <span class="ccard-tag">Think Small</span>
         </div>
         <h3 class="ccard-headline">כיצד מכרו רכב גרמני מוזר לאמריקאים שאהבו ענקיות — ושינו את עולם הפרסום?</h3>
-        <p class="ccard-insight">במקום לייפות את המציאות, הם הבליטו בכוונה את העובדה שהוא קטן. "תחשבו קטן" הפך לאחד הקמפיינים המוצלחים בהיסטוריה.</p>
-        <div class="ccard-question">
-          <div class="ccard-q-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01" stroke-linecap="round"/></svg></div>
-          <p class="ccard-q-text">את מנסה "להיראות כחברה גדולה" — או שאת מבליטה את היחס האישי שרק עסק בוטיק של אישה אחת יכולה לתת?</p>
-        </div>
+        <button class="ccard-toggle" aria-expanded="false">
+          <span>קראי עוד</span>
+          <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="ccard-expand"><div>
+          <p class="ccard-insight">במקום לייפות את המציאות, הם הבליטו בכוונה את העובדה שהוא קטן. "תחשבו קטן" הפך לאחד הקמפיינים המוצלחים בהיסטוריה.</p>
+          <div class="ccard-question">
+            <div class="ccard-q-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01" stroke-linecap="round"/></svg></div>
+            <p class="ccard-q-text">את מנסה "להיראות כחברה גדולה" — או שאת מבליטה את היחס האישי שרק עסק בוטיק של אישה אחת יכולה לתת?</p>
+          </div>
+        </div></div>
       </div>
     </article>
 
@@ -745,11 +781,17 @@
           <span class="ccard-tag">Guerrilla</span>
         </div>
         <h3 class="ccard-headline">כיצד הפכה חברת פסטה את מודעת הרחוב המשעממת ביותר בעולם לקמפיין מדובר?</h3>
-        <p class="ccard-insight">הם גזרו את הפתקים כך שייראו כמו חבילת ספגטי. חדשנות לא דורשת תקציב ענק — היא דורשת הסתכלות חדשה על פלטפורמה קיימת.</p>
-        <div class="ccard-question">
-          <div class="ccard-q-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01" stroke-linecap="round"/></svg></div>
-          <p class="ccard-q-text">איזו פלטפורמה שכולן כבר משתמשות בה (רילס, וואטסאפ, סטורי) יכולה לקבל אצלך טוויסט אחד קטן שיהפוך אותה לבלתי נשכחת?</p>
-        </div>
+        <button class="ccard-toggle" aria-expanded="false">
+          <span>קראי עוד</span>
+          <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="ccard-expand"><div>
+          <p class="ccard-insight">הם גזרו את הפתקים כך שייראו כמו חבילת ספגטי. חדשנות לא דורשת תקציב ענק — היא דורשת הסתכלות חדשה על פלטפורמה קיימת.</p>
+          <div class="ccard-question">
+            <div class="ccard-q-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01" stroke-linecap="round"/></svg></div>
+            <p class="ccard-q-text">איזו פלטפורמה שכולן כבר משתמשות בה (רילס, וואטסאפ, סטורי) יכולה לקבל אצלך טוויסט אחד קטן שיהפוך אותה לבלתי נשכחת?</p>
+          </div>
+        </div></div>
       </div>
     </article>
 
@@ -776,11 +818,17 @@
           <span class="ccard-tag">Transformation</span>
         </div>
         <h3 class="ccard-headline">כיצד ארזה איקאה כרית כ"תוסף תזונה" ומכרה את מחלקת השינה שלה מחדש?</h3>
-        <p class="ccard-insight">המסר: "מחר מתחיל הלילה". אל תמכרי תכונות (Features) — תמכרי את המהפך (Transformation) שהמוצר מייצר.</p>
-        <div class="ccard-question">
-          <div class="ccard-q-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01" stroke-linecap="round"/></svg></div>
-          <p class="ccard-q-text">מהי "תרופת הפלא" שהשירות שלך מספק? את מוכרת "שעות ייעוץ" — או "שקט נפשי", "ביטחון כלכלי" ו"יותר זמן עם הילדים"?</p>
-        </div>
+        <button class="ccard-toggle" aria-expanded="false">
+          <span>קראי עוד</span>
+          <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="ccard-expand"><div>
+          <p class="ccard-insight">המסר: "מחר מתחיל הלילה". אל תמכרי תכונות (Features) — תמכרי את המהפך (Transformation) שהמוצר מייצר.</p>
+          <div class="ccard-question">
+            <div class="ccard-q-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01" stroke-linecap="round"/></svg></div>
+            <p class="ccard-q-text">מהי "תרופת הפלא" שהשירות שלך מספק? את מוכרת "שעות ייעוץ" — או "שקט נפשי", "ביטחון כלכלי" ו"יותר זמן עם הילדים"?</p>
+          </div>
+        </div></div>
       </div>
     </article>
 
@@ -908,6 +956,17 @@ document.querySelectorAll('.nav-logo-btn, .cta-form button, .hero-card').forEach
   el.addEventListener('mouseleave', ()=>{ el.style.transform=''; });
 });
 
+
+/* ── CARD EXPAND ── */
+document.querySelectorAll('.ccard-toggle').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const card = btn.closest('.ccard');
+    const open = card.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+    btn.querySelector('span').textContent = open ? 'סגרי' : 'קראי עוד';
+  });
+});
 
 /* ── FOG REVEAL ── */
 (function initFog() {
