@@ -314,6 +314,48 @@
     /* ── KEYFRAME ── */
     @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
+    /* ── EDIT MODE ── */
+    #edit-ui {
+      position:fixed; bottom:1.5rem; left:1.5rem; z-index:9999;
+      display:flex; flex-direction:column; align-items:flex-start; gap:.5rem;
+    }
+    #edit-toggle {
+      display:inline-flex; align-items:center; gap:.5rem;
+      background:var(--dark); color:var(--white);
+      font-family:var(--f-body); font-weight:700; font-size:.82rem;
+      padding:.6rem 1.1rem; border-radius:2rem;
+      border:2px solid var(--purple);
+      box-shadow:3px 3px 0 var(--purple);
+      cursor:pointer; transition:all .15s;
+    }
+    #edit-toggle.active { background:var(--pink); border-color:var(--dark); box-shadow:3px 3px 0 var(--dark); }
+    #edit-toggle:hover   { transform:translate(-2px,-2px); }
+    #save-btn {
+      display:none; align-items:center; gap:.5rem;
+      background:var(--purple); color:var(--white);
+      font-family:var(--f-body); font-weight:700; font-size:.82rem;
+      padding:.6rem 1.1rem; border-radius:2rem;
+      border:2px solid var(--dark);
+      box-shadow:3px 3px 0 var(--dark);
+      cursor:pointer; transition:all .15s;
+    }
+    #save-btn:hover { transform:translate(-2px,-2px); box-shadow:5px 5px 0 var(--dark); }
+    body.edit-active [contenteditable="true"] {
+      outline:2px dashed var(--pink); outline-offset:3px;
+      border-radius:3px; cursor:text; min-width:10px;
+    }
+    body.edit-active [contenteditable="true"]:focus {
+      outline:2px solid var(--pink);
+      background:rgba(232,80,138,.06);
+    }
+    #edit-hint {
+      display:none; font-family:var(--f-body); font-size:.72rem;
+      color:var(--white); background:var(--dark);
+      padding:.4rem .8rem; border-radius:1rem;
+      opacity:.8; white-space:nowrap;
+    }
+    body.edit-active #edit-hint { display:block; }
+
     /* ── MOBILE ── */
     @media(max-width:768px) {
       .nav-inner { padding:.85rem 1.25rem; }
@@ -691,6 +733,44 @@ function handleContact(e) {
   btn.disabled = true;
   e.target.querySelectorAll('input').forEach(i => i.disabled = true);
 }
+
+/* ── EDIT MODE ── */
+const EDITABLE = 'h1,h2,h3,p,.scard-label,.scard-tagline,.scard-price-value,.scard-price-unit,.page-hero-eyebrow,.dept-desc,.lost-sub,.lost-title';
+let isEditing = false;
+const editToggle = document.getElementById('edit-toggle');
+const saveBtn    = document.getElementById('save-btn');
+
+editToggle.addEventListener('click', () => {
+  isEditing = !isEditing;
+  document.body.classList.toggle('edit-active', isEditing);
+  document.querySelectorAll(EDITABLE).forEach(el => {
+    el.contentEditable = isEditing ? 'true' : 'false';
+  });
+  editToggle.textContent = isEditing ? '✕ סיום עריכה' : '✏️ עריכת טקסט';
+  editToggle.classList.toggle('active', isEditing);
+  saveBtn.style.display = isEditing ? 'flex' : 'none';
+});
+
+saveBtn.addEventListener('click', () => {
+  const clone = document.documentElement.cloneNode(true);
+  clone.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
+  const ui = clone.querySelector('#edit-ui');
+  if (ui) ui.remove();
+  clone.querySelector('body')?.classList.remove('edit-active');
+  const html = '<!DOCTYPE html>\n' + clone.outerHTML;
+  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = 'services.html'; a.click();
+  URL.revokeObjectURL(url);
+});
 </script>
+
+<!-- EDIT UI -->
+<div id="edit-ui">
+  <span id="edit-hint">לחצי על כל טקסט לעריכה</span>
+  <button id="save-btn">⬇ שמירה והורדה</button>
+  <button id="edit-toggle">✏️ עריכת טקסט</button>
+</div>
 </body>
 </html>
