@@ -288,6 +288,168 @@
     .contact-submit:disabled { opacity:.7; cursor:default; }
     .form-fine { font-size:.74rem; color:rgba(22,22,58,.38); text-align:center; }
 
+    /* ── HOW IT WORKS ── */
+    .hiw-section { border-top:2px solid var(--border); }
+    .hiw-wrap { max-width:1200px; margin:0 auto; padding:5rem 2.5rem; }
+    .hiw-header { display:flex; align-items:flex-end; justify-content:space-between; gap:2rem; flex-wrap:wrap; margin-bottom:3rem; }
+    .hiw-big-title {
+      font-family:var(--f-head); font-weight:900;
+      font-size:clamp(3rem,7vw,5.5rem);
+      line-height:.95; letter-spacing:-.04em;
+    }
+    .hiw-quiz-cta {
+      display:inline-flex; align-items:center; gap:.55rem;
+      background:var(--yellow); color:var(--dark);
+      font-family:var(--f-body); font-weight:700; font-size:.88rem;
+      padding:.65rem 1.4rem; border-radius:2rem;
+      text-decoration:none; border:2px solid var(--dark);
+      box-shadow:3px 3px 0 var(--dark);
+      transition:transform .15s, box-shadow .15s;
+      white-space:nowrap; align-self:flex-end;
+    }
+    .hiw-quiz-cta:hover { transform:translate(-2px,-2px); box-shadow:5px 5px 0 var(--dark); }
+    .hiw-steps { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; }
+    .hiw-step {
+      background:var(--white); border:2px solid var(--purple);
+      border-radius:1rem; padding:2rem 1.75rem;
+      box-shadow:4px 4px 0 var(--purple);
+      display:flex; flex-direction:column; gap:.85rem;
+      position:relative;
+    }
+    .hiw-step-num {
+      font-family:var(--f-head); font-weight:900;
+      font-size:3.5rem; line-height:1; letter-spacing:-.05em;
+      color:var(--border);
+    }
+    .hiw-step-title {
+      font-family:var(--f-head); font-weight:700;
+      font-size:1.3rem; letter-spacing:-.02em;
+    }
+    .hiw-step-desc { font-size:.88rem; line-height:1.7; opacity:.62; }
+    .hiw-step-tag {
+      display:inline-flex; align-items:center;
+      font-size:.68rem; font-weight:700;
+      letter-spacing:.1em; text-transform:uppercase;
+      color:var(--purple); opacity:.45;
+      border:1px solid var(--border);
+      padding:.2rem .65rem; border-radius:2rem;
+      align-self:flex-start;
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testi-section { background:var(--dark); }
+    .testi-wrap { max-width:1200px; margin:0 auto; padding:5rem 2.5rem; }
+    .testi-eyebrow {
+      font-size:.72rem; font-weight:700;
+      letter-spacing:.12em; text-transform:uppercase;
+      color:rgba(245,240,232,.4); margin-bottom:1rem;
+    }
+    .testi-title {
+      font-family:var(--f-head); font-weight:900;
+      font-size:clamp(2.5rem,5vw,4rem);
+      line-height:.95; letter-spacing:-.04em;
+      color:var(--bg); margin-bottom:3rem;
+    }
+    .testi-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; }
+    .testi-card {
+      background:rgba(245,240,232,.06);
+      border:1.5px solid rgba(245,240,232,.12);
+      border-radius:1rem; padding:1.75rem;
+      display:flex; flex-direction:column; gap:1rem;
+    }
+    .testi-stars { color:var(--yellow); font-size:1rem; letter-spacing:.1em; }
+    .testi-quote {
+      font-size:.92rem; line-height:1.75;
+      color:rgba(245,240,232,.75); flex:1;
+    }
+    .testi-author { display:flex; align-items:center; gap:.85rem; }
+    .testi-avatar {
+      width:40px; height:40px; border-radius:50%;
+      background:var(--purple); display:flex; align-items:center; justify-content:center;
+      font-family:var(--f-head); font-weight:900;
+      font-size:.9rem; color:var(--white); flex-shrink:0;
+    }
+    .testi-name { font-weight:700; font-size:.88rem; color:var(--bg); }
+    .testi-role { font-size:.75rem; color:rgba(245,240,232,.4); margin-top:.1rem; }
+    .testi-dept {
+      display:inline-flex; align-items:center;
+      font-size:.65rem; font-weight:700;
+      letter-spacing:.1em; text-transform:uppercase;
+      color:rgba(245,240,232,.5);
+      border:1px solid rgba(245,240,232,.15);
+      padding:.2rem .6rem; border-radius:2rem;
+      align-self:flex-start;
+    }
+
+    /* ── FAQ ── */
+    .faq-section { border-top:2px solid var(--border); }
+    .faq-wrap { max-width:1200px; margin:0 auto; padding:5rem 2.5rem; }
+    .faq-header { margin-bottom:3rem; }
+    .faq-big-title {
+      font-family:var(--f-head); font-weight:900;
+      font-size:clamp(2.8rem,6vw,5rem);
+      line-height:.95; letter-spacing:-.04em;
+    }
+    .faq-list { display:flex; flex-direction:column; gap:.75rem; max-width:780px; }
+    .faq-item {
+      background:var(--white); border:2px solid var(--purple);
+      border-radius:.85rem; overflow:hidden;
+      box-shadow:3px 3px 0 var(--purple);
+    }
+    .faq-q {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:1.15rem 1.5rem; cursor:pointer;
+      background:none; border:none; width:100%;
+      font-family:var(--f-body); font-weight:700; font-size:.95rem;
+      color:var(--purple); direction:rtl; text-align:right;
+    }
+    .faq-q svg { flex-shrink:0; transition:transform .3s; }
+    .faq-item.open .faq-q svg { transform:rotate(180deg); }
+    .faq-a {
+      display:grid; grid-template-rows:0fr;
+      transition:grid-template-rows .35s ease;
+    }
+    .faq-a > div { overflow:hidden; }
+    .faq-item.open .faq-a { grid-template-rows:1fr; }
+    .faq-a-inner {
+      padding:0 1.5rem 1.25rem;
+      font-size:.88rem; line-height:1.75; opacity:.65;
+    }
+
+    /* ── STICKY CTA ── */
+    .sticky-cta {
+      position:fixed; bottom:0; left:0; right:0; z-index:200;
+      background:var(--purple);
+      border-top:2px solid var(--dark);
+      padding:.75rem 2rem;
+      display:flex; align-items:center; justify-content:space-between;
+      transform:translateY(100%);
+      transition:transform .4s cubic-bezier(.4,0,.2,1);
+    }
+    .sticky-cta.visible { transform:translateY(0); }
+    .sticky-cta-text {
+      font-family:var(--f-head); font-weight:700;
+      font-size:1rem; color:var(--white);
+      letter-spacing:-.01em;
+    }
+    .sticky-cta-btns { display:flex; gap:.75rem; align-items:center; }
+    .sticky-cta-btn {
+      display:inline-flex; align-items:center; gap:.45rem;
+      background:var(--yellow); color:var(--dark);
+      font-family:var(--f-body); font-weight:700; font-size:.85rem;
+      padding:.6rem 1.3rem; border-radius:2rem;
+      text-decoration:none; border:2px solid var(--dark);
+      box-shadow:3px 3px 0 var(--dark);
+      transition:transform .12s, box-shadow .12s;
+      white-space:nowrap;
+    }
+    .sticky-cta-btn:hover { transform:translate(-1px,-1px); box-shadow:4px 4px 0 var(--dark); }
+    .sticky-cta-btn.outline {
+      background:transparent; color:rgba(255,255,255,.7);
+      border-color:rgba(255,255,255,.25); box-shadow:none;
+    }
+    .sticky-cta-btn.outline:hover { color:var(--white); border-color:rgba(255,255,255,.5); }
+
     /* ── FOOTER ── */
     footer { background:var(--dark); }
     .footer-inner {
@@ -550,6 +712,11 @@
       .services-grid  { padding-bottom:3rem; }
       .dept-header    { flex-direction:column; gap:1rem; }
       .grid-2, .grid-3 { grid-template-columns:1fr; }
+      .hiw-steps, .testi-grid { grid-template-columns:1fr; }
+      .hiw-wrap, .testi-wrap, .faq-wrap { padding:3.5rem 1.25rem; }
+      .hiw-header { flex-direction:column; align-items:flex-start; }
+      .sticky-cta { padding:.65rem 1.25rem; }
+      .sticky-cta-text { font-size:.85rem; }
       .lost-inner { grid-template-columns:1fr; gap:2.5rem; padding:3.5rem 1.25rem; }
       .footer-inner { flex-direction:column; gap:1.25rem; text-align:center; padding:2rem 1.25rem; }
     }
@@ -644,6 +811,151 @@
 </section>
 
 
+<!-- ═══════════ HOW IT WORKS ═══════════ -->
+<section class="hiw-section">
+  <div class="hiw-wrap">
+    <div class="hiw-header">
+      <h2 class="hiw-big-title">איך זה<br>עובד?</h2>
+      <a href="quiz.html" class="hiw-quiz-cta">
+        ✦ &nbsp;לא בטוחה מה מתאים? עשי את השאלון
+      </a>
+    </div>
+    <div class="hiw-steps">
+      <div class="hiw-step">
+        <div class="hiw-step-num">01</div>
+        <span class="hiw-step-tag">שיחת היכרות</span>
+        <h3 class="hiw-step-title">15 דקות, בחינם לגמרי</h3>
+        <p class="hiw-step-desc">נדבר קצר — אני אבין מה קורה אצלך ואת תבינו אם אני הבן-אדם הנכון. בלי מכירה, בלי לחץ.</p>
+      </div>
+      <div class="hiw-step">
+        <div class="hiw-step-num">02</div>
+        <span class="hiw-step-tag">הצעה מותאמת</span>
+        <h3 class="hiw-step-title">מקבלת הצעה ספציפית</h3>
+        <p class="hiw-step-desc">תוך 48 שעות אשלח לך הצעה מפורטת שמציינת בדיוק מה כלול, כמה עולה, ומה אנחנו הולכות לעשות.</p>
+      </div>
+      <div class="hiw-step">
+        <div class="hiw-step-num">03</div>
+        <span class="hiw-step-tag">מתחילות לעבוד</span>
+        <h3 class="hiw-step-title">יש תאריך, יש תוכנית</h3>
+        <p class="hiw-step-desc">אין "נדבר שוב בקרוב". יש תאריך התחלה, לו"ז ברור, וסיום שיודעים מה הוא מייצר.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TESTIMONIALS ═══════════ -->
+<section class="testi-section">
+  <div class="testi-wrap">
+    <p class="testi-eyebrow">מה אומרות עלינו</p>
+    <h2 class="testi-title">אמיתי. מהשטח.</h2>
+    <div class="testi-grid">
+
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"נכנסתי לפגישה עם ראש עמוס ויצאתי עם תוכנית. פשוט כך. בשעה אחת הצלחנו לסדר את כל מה שלא הצלחתי לסדר לבד בחצי שנה."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">מ</div>
+          <div>
+            <div class="testi-name">מיכל ר.</div>
+            <div class="testi-role">מאמנת עסקית</div>
+          </div>
+        </div>
+        <span class="testi-dept">🧠 SMART · Small</span>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"הסדרה שכתבה לי הכניסה 3 לקוחות חדשות תוך שבועיים. לא תאמין — מייל אחד, שעשינו A/B לשורת הנושא, פתח שיעור של 68%."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">ש</div>
+          <div>
+            <div class="testi-name">שירה ל.</div>
+            <div class="testi-role">יועצת תזונה</div>
+          </div>
+        </div>
+        <span class="testi-dept">🚀 DRIVE · Big</span>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"הלוגו והמיתוג שינו לי את הביטחון לגמרי. אני עכשיו מעלה מחירים — ולקוחות לא מסרבות. המותג שמוכר לפני שאני בכלל פתחתי פה."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">נ</div>
+          <div>
+            <div class="testi-name">נועה ב.</div>
+            <div class="testi-role">מעצבת פנים</div>
+          </div>
+        </div>
+        <span class="testi-dept">🟢 GO · Big</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FAQ ═══════════ -->
+<section class="faq-section">
+  <div class="faq-wrap">
+    <div class="faq-header">
+      <p class="section-label" style="margin-bottom:.75rem">שאלות נפוצות</p>
+      <h2 class="faq-big-title">יש לך<br>שאלות?</h2>
+    </div>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q">
+          <span>מה ההבדל בין Small, Big ו-Retainer?</span>
+          <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div>
+          <p class="faq-a-inner">Small = כניסה ממוקדת לנקודה ספציפית אחת — מהיר ומדויק. Big = פרויקט מלא עם תחילה, אמצע וסוף ברורים. Retainer = שיתוף פעולה חודשי קבוע שבונה תוצאות לאורך זמן. <a href="quiz.html" style="color:var(--purple);font-weight:700">עשי את השאלון</a> כדי לגלות מה הכי מתאים לך.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          <span>כמה זמן לוקח עד שמתחילים לעבוד?</span>
+          <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div>
+          <p class="faq-a-inner">בדרך כלל תוך 48–72 שעות משיחת ההיכרות מקבלים הצעה. אחרי אישור — נקבע תאריך התחלה ומתחילים. פרויקטי Small מתחילים לרוב תוך שבוע.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          <span>האם אפשר לשלב בין מחלקות שונות?</span>
+          <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div>
+          <p class="faq-a-inner">בהחלט. הרבה לקוחות מתחילות עם SMART (אסטרטגיה), ואחרי שיש כיוון ברור עוברות ל-DRIVE לכתיבה או GO לעיצוב. זה בעצם הסדר הכי הגיוני.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          <span>מה קורה אם אני לא מרוצה?</span>
+          <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div>
+          <p class="faq-a-inner">בפרויקטי כתיבה ועיצוב כלול סבב תיקונים — אז יש מקום לדיוק. בריטיינר יש הודעת ביטול של 30 יום. ובכל מקרה, שיחת ההיכרות הראשונה נועדה בדיוק בשביל לוודא שיש כימיה ושזה מתאים — לשתינו.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          <span>לא בטוחה מה אני צריכה — מאיפה מתחילים?</span>
+          <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div>
+          <p class="faq-a-inner">יש שתי אפשרויות: <a href="quiz.html" style="color:var(--purple);font-weight:700">עשי את השאלון הקצר</a> שיתן לך המלצה מדויקת, או פשוט תשאירי פרטים למטה ונבדוק יחד בשיחה קצרה ובחינם.</p>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ═══════════ CONTACT ═══════════ -->
 <section class="lost-section" id="contact">
   <div class="lost-inner">
@@ -684,6 +996,15 @@
     <p class="footer-copy">© 2025 SmartGo</p>
   </div>
 </footer>
+
+<!-- STICKY CTA -->
+<div class="sticky-cta" id="sticky-cta">
+  <span class="sticky-cta-text">מוכנה לדבר? בואי נמצא מה מתאים לך.</span>
+  <div class="sticky-cta-btns">
+    <a href="quiz.html" class="sticky-cta-btn outline">✦ שאלון מהיר</a>
+    <a href="#contact" class="sticky-cta-btn" onclick="document.getElementById('sticky-cta').classList.remove('visible')">קבעי שיחה ←</a>
+  </div>
+</div>
 
 <!-- EDIT UI -->
 <div id="edit-ui">
@@ -850,6 +1171,31 @@ window.addEventListener('resize', () => {
   const active = document.querySelector('.plan-btn.active');
   if (active) updatePill(active);
 });
+
+/* ── FAQ ACCORDION ── */
+document.querySelectorAll('.faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  });
+});
+
+/* ── STICKY CTA ── */
+(function() {
+  const bar = document.getElementById('sticky-cta');
+  let shown = false;
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400 && !shown) { bar.classList.add('visible'); shown = true; }
+    const contact = document.getElementById('contact');
+    if (contact) {
+      const rect = contact.getBoundingClientRect();
+      if (rect.top < window.innerHeight) bar.classList.remove('visible');
+      else if (shown) bar.classList.add('visible');
+    }
+  });
+})();
 
 /* ── REVEAL ── */
 const revObs = new IntersectionObserver(entries => {

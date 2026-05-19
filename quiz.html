@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>מה מתאים לעסק שלך? — Smart Go Drive</title>
+  <style>
+    @font-face { font-family:'Leon';   src:url('פונטים/Leon-Bold.otf')          format('opentype'); font-weight:700 900; font-display:swap; }
+    @font-face { font-family:'Leon';   src:url('פונטים/Leon-Regular.otf')       format('opentype'); font-weight:300 500; font-display:swap; }
+    @font-face { font-family:'Almoni'; src:url('פונטים/almoni-bold-aaa.otf')    format('opentype'); font-weight:700 900; font-display:swap; }
+    @font-face { font-family:'Almoni'; src:url('פונטים/almoni-regular-aaa.otf') format('opentype'); font-weight:300 500; font-display:swap; }
+
+    :root {
+      --bg:     #f5f0e8;
+      --purple: #3b3b97;
+      --teal:   #74d4d9;
+      --yellow: #fed332;
+      --pink:   #e8508a;
+      --white:  #ffffff;
+      --dark:   #16163a;
+      --border: rgba(59,59,151,0.12);
+      --f-head: 'Leon',   serif;
+      --f-body: 'Almoni', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family: var(--f-body);
+      background: var(--bg);
+      color: var(--purple);
+      direction: rtl;
+      text-align: right;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position:fixed; top:0; width:100%; z-index:100;
+      background:rgba(245,240,232,0.92);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--border);
+    }
+    .nav-inner {
+      max-width:1200px; margin:0 auto;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:.85rem 2.5rem;
+    }
+    .nav-links { display:flex; gap:1.75rem; list-style:none; }
+    .nav-links a { font-size:.96rem; font-weight:700; color:var(--purple); text-decoration:none; opacity:.8; transition:opacity .2s; }
+    .nav-links a:hover { opacity:1; }
+    .nav-logo-btn {
+      background:var(--dark); color:var(--white);
+      font-family:var(--f-body); font-weight:700; font-size:.85rem;
+      padding:.5rem 1.25rem; border-radius:2rem;
+      text-decoration:none; letter-spacing:.05em;
+      border:2px solid var(--dark); box-shadow:3px 3px 0 var(--purple);
+      transition:transform .15s, box-shadow .15s;
+    }
+    .nav-logo-btn:hover { transform:translate(-2px,-2px); box-shadow:5px 5px 0 var(--purple); }
+    .nav-version { font-size:.72rem; color:var(--purple); opacity:.45; }
+
+    /* ── QUIZ WRAPPER ── */
+    .quiz-page {
+      min-height: 100vh;
+      padding-top: 5.5rem;
+      padding-bottom: 4rem;
+    }
+    .quiz-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ── SCREEN: INTRO ── */
+    #screen-intro {
+      padding-top: 3rem;
+      text-align: center;
+    }
+    .intro-eyebrow {
+      font-size: .75rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--purple); opacity: .5;
+      margin-bottom: 1.25rem;
+    }
+    .intro-title {
+      font-family: var(--f-head); font-weight: 900;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      line-height: .95; letter-spacing: -.04em;
+      color: var(--purple);
+      margin-bottom: 1.5rem;
+    }
+    .intro-sub {
+      font-size: 1.05rem; line-height: 1.75;
+      opacity: .65; max-width: 480px; margin: 0 auto 2.5rem;
+    }
+    .intro-steps {
+      display: flex; justify-content: center; gap: 2rem;
+      margin-bottom: 3rem; flex-wrap: wrap;
+    }
+    .intro-step {
+      display: flex; flex-direction: column; align-items: center; gap: .4rem;
+      font-size: .78rem; font-weight: 700; opacity: .55; letter-spacing: .05em;
+    }
+    .intro-step-num {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 2px solid var(--purple);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--f-head); font-weight: 900; font-size: 1rem;
+      opacity: 1;
+    }
+    .intro-start-btn {
+      display: inline-flex; align-items: center; gap: .65rem;
+      background: var(--purple); color: var(--white);
+      font-family: var(--f-head); font-weight: 900;
+      font-size: 1.15rem; letter-spacing: -.01em;
+      padding: .9rem 2.5rem; border-radius: 3rem;
+      border: 2px solid var(--dark);
+      box-shadow: 5px 5px 0 var(--dark);
+      cursor: pointer; text-decoration: none;
+      transition: transform .15s, box-shadow .15s;
+    }
+    .intro-start-btn:hover { transform: translate(-3px,-3px); box-shadow: 8px 8px 0 var(--dark); }
+    .intro-start-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+    .intro-card-preview {
+      margin-top: 3.5rem;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+      opacity: .35;
+    }
+    .intro-preview-item {
+      background: var(--white); border: 2px solid var(--purple);
+      border-radius: .75rem; padding: 1rem;
+      font-family: var(--f-head); font-weight: 700;
+      font-size: .9rem; text-align: right;
+      box-shadow: 3px 3px 0 var(--purple);
+    }
+
+    /* ── SCREEN: QUIZ ── */
+    #screen-quiz { display: none; padding-top: 1.5rem; }
+
+    /* Progress */
+    .quiz-progress-wrap {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .quiz-progress-bar {
+      flex: 1; height: 6px;
+      background: var(--border);
+      border-radius: 3px; overflow: hidden;
+    }
+    .quiz-progress-fill {
+      height: 100%; background: var(--purple);
+      border-radius: 3px;
+      transition: width .4s ease;
+    }
+    .quiz-progress-label {
+      font-size: .75rem; font-weight: 700;
+      color: var(--purple); opacity: .45;
+      white-space: nowrap; letter-spacing: .05em;
+    }
+
+    /* Question */
+    .quiz-q-wrap {
+      animation: qIn .4s ease forwards;
+    }
+    @keyframes qIn {
+      from { opacity: 0; transform: translateX(-24px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    .quiz-q-num {
+      font-size: .72rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--pink); margin-bottom: .85rem;
+    }
+    .quiz-q-text {
+      font-family: var(--f-head); font-weight: 900;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      line-height: 1.1; letter-spacing: -.03em;
+      color: var(--purple);
+      margin-bottom: 2rem;
+    }
+    .quiz-options {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: .85rem;
+    }
+    .quiz-option {
+      background: var(--white);
+      border: 2px solid var(--purple);
+      border-radius: 1rem;
+      padding: 1.25rem 1.4rem;
+      cursor: pointer;
+      display: flex; align-items: flex-start; gap: .85rem;
+      box-shadow: 4px 4px 0 var(--purple);
+      transition: transform .12s, box-shadow .12s, background .12s;
+      text-align: right;
+    }
+    .quiz-option:hover {
+      transform: translate(-2px,-2px);
+      box-shadow: 6px 6px 0 var(--purple);
+    }
+    .quiz-option.selected {
+      background: var(--purple); color: var(--white);
+      transform: translate(-2px,-2px);
+      box-shadow: 6px 6px 0 var(--dark);
+      border-color: var(--dark);
+    }
+    .quiz-option-icon {
+      font-size: 1.4rem; flex-shrink: 0; margin-top: 1px;
+    }
+    .quiz-option-text {
+      font-size: .9rem; font-weight: 700; line-height: 1.4;
+    }
+    .quiz-option.selected .quiz-option-text { color: var(--white); }
+
+    .quiz-next-btn {
+      display: none; margin-top: 1.75rem;
+      background: var(--dark); color: var(--white);
+      font-family: var(--f-body); font-weight: 700; font-size: 1rem;
+      padding: .8rem 2rem; border-radius: 2rem;
+      border: 2px solid var(--dark);
+      box-shadow: 4px 4px 0 var(--purple);
+      cursor: pointer;
+      transition: transform .15s, box-shadow .15s;
+    }
+    .quiz-next-btn:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--purple); }
+
+    /* ── SCREEN: RESULT ── */
+    #screen-result { display: none; padding-top: 1.5rem; }
+
+    .result-eyebrow {
+      font-size: .75rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--purple); opacity: .5; margin-bottom: 1rem;
+    }
+    .result-title {
+      font-family: var(--f-head); font-weight: 900;
+      font-size: clamp(1.8rem, 5vw, 3.2rem);
+      line-height: 1.05; letter-spacing: -.04em;
+      margin-bottom: .35rem;
+    }
+    .result-sub {
+      font-size: 1rem; opacity: .6; line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .result-card {
+      background: var(--white);
+      border: 2px solid var(--purple);
+      border-radius: 1.25rem;
+      overflow: hidden;
+      box-shadow: 6px 6px 0 var(--purple);
+      margin-bottom: 1.5rem;
+    }
+    .result-card-stripe { height: 6px; }
+    .result-card-stripe.smart { background: var(--dark); }
+    .result-card-stripe.drive { background: var(--pink); }
+    .result-card-stripe.go    { background: var(--teal); }
+
+    .result-card-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.4rem 1.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .result-dept-label {
+      font-size: .68rem; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      opacity: .45;
+    }
+    .result-plan-badge {
+      display: inline-flex; align-items: center; gap: .4rem;
+      background: var(--purple); color: var(--white);
+      font-size: .7rem; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      padding: .28rem .8rem; border-radius: 2rem;
+    }
+    .result-card-body { padding: 1.4rem 1.75rem 1.75rem; }
+    .result-service-price {
+      display: inline-flex; align-items: baseline; gap: .3rem;
+      background: var(--bg); border: 1.5px solid var(--border);
+      border-radius: 2rem; padding: .3rem .9rem;
+      margin-bottom: 1rem;
+    }
+    .result-price-num {
+      font-family: var(--f-head); font-weight: 900;
+      font-size: 1.2rem; letter-spacing: -.03em;
+    }
+    .result-price-suf { font-size: .72rem; opacity: .55; }
+    .result-service-title {
+      font-family: var(--f-head); font-weight: 900;
+      font-size: 1.6rem; letter-spacing: -.03em; line-height: 1.1;
+      margin-bottom: .3rem;
+    }
+    .result-tagline {
+      font-size: .85rem; font-weight: 700;
+      color: var(--pink); margin-bottom: 1rem;
+    }
+    .result-desc {
+      font-size: .9rem; line-height: 1.75; opacity: .65;
+      margin-bottom: 1.25rem;
+    }
+    .result-includes {
+      list-style: none; display: flex; flex-direction: column; gap: .45rem;
+      padding: 1rem 0; border-top: 1px solid var(--border);
+      margin-bottom: 1.25rem;
+    }
+    .result-include-item {
+      display: flex; align-items: flex-start; gap: .5rem;
+      font-size: .84rem; line-height: 1.4;
+    }
+    .result-check {
+      width: 17px; height: 17px; border-radius: 50%;
+      background: var(--purple);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .result-check svg { width: 8px; height: 8px; stroke: var(--white); fill: none; stroke-width: 2.5; }
+    .result-cta {
+      display: inline-flex; align-items: center; gap: .55rem;
+      background: var(--dark); color: var(--white);
+      font-family: var(--f-body); font-weight: 700; font-size: .95rem;
+      padding: .8rem 1.75rem; border-radius: 2rem;
+      text-decoration: none; border: 2px solid var(--dark);
+      box-shadow: 4px 4px 0 var(--purple);
+      transition: transform .15s, box-shadow .15s;
+    }
+    .result-cta:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--purple); }
+    .result-cta svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2.2; flex-shrink: 0; }
+
+    .result-also {
+      background: var(--yellow);
+      border: 2px solid var(--dark);
+      border-radius: 1rem; padding: 1.25rem 1.5rem;
+      box-shadow: 4px 4px 0 var(--dark);
+    }
+    .result-also-title {
+      font-family: var(--f-head); font-weight: 700;
+      font-size: 1.05rem; color: var(--dark);
+      margin-bottom: .5rem;
+    }
+    .result-also-text { font-size: .85rem; line-height: 1.65; color: rgba(22,22,58,.65); }
+
+    .result-restart {
+      display: inline-flex; align-items: center; gap: .45rem;
+      margin-top: 1.5rem;
+      background: none; border: 2px solid var(--purple);
+      border-radius: 2rem; padding: .55rem 1.25rem;
+      font-family: var(--f-body); font-weight: 700; font-size: .85rem;
+      color: var(--purple); cursor: pointer;
+      box-shadow: 3px 3px 0 var(--purple);
+      transition: transform .12s, box-shadow .12s;
+    }
+    .result-restart:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 var(--purple); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--dark); }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      padding: 2rem 2.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-brand { font-family: var(--f-head); font-weight: 700; color: var(--white); font-size: 1.2rem; }
+    .footer-brand span { display: block; font-family: var(--f-body); font-size: .75rem; color: rgba(255,255,255,.32); font-weight: 400; margin-top: .1rem; }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a { font-size: .82rem; color: rgba(255,255,255,.38); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--white); }
+    .footer-copy { font-size: .75rem; color: rgba(255,255,255,.18); }
+
+    /* ── MOBILE ── */
+    @media(max-width: 640px) {
+      .nav-inner { padding: .85rem 1.25rem; }
+      .nav-links  { display: none; }
+      .quiz-inner { padding: 0 1.25rem; }
+      .quiz-options { grid-template-columns: 1fr; }
+      .intro-card-preview { display: none; }
+      .intro-steps { gap: 1.25rem; }
+      .footer-inner { flex-direction: column; gap: 1.25rem; text-align: center; padding: 2rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-version">גרסה 01 — אביב 2026</div>
+    <ul class="nav-links">
+      <li><a href="index.html">בית</a></li>
+      <li><a href="services.html">שירותים</a></li>
+      <li><a href="services.html#contact">ליצור קשר</a></li>
+    </ul>
+    <a href="services.html#contact" class="nav-logo-btn">בלון / חמצן</a>
+  </div>
+</nav>
+
+<div class="quiz-page">
+<div class="quiz-inner">
+
+  <!-- ═══ SCREEN: INTRO ═══ -->
+  <div id="screen-intro">
+    <p class="intro-eyebrow">Smart Go Drive · מציאת השירות המתאים</p>
+    <h1 class="intro-title">מה מתאים<br>לעסק שלך?</h1>
+    <p class="intro-sub">5 שאלות קצרות. תשובה מדויקת. בלי לנחש ובלי לבזבז זמן על שיחה שאין בה צורך.</p>
+    <div class="intro-steps">
+      <div class="intro-step">
+        <div class="intro-step-num">5</div>
+        שאלות
+      </div>
+      <div class="intro-step">
+        <div class="intro-step-num">2</div>
+        דקות
+      </div>
+      <div class="intro-step">
+        <div class="intro-step-num">1</div>
+        המלצה מדויקת
+      </div>
+    </div>
+    <button class="intro-start-btn" onclick="startQuiz()">
+      בואי נתחיל
+      <svg viewBox="0 0 18 18"><path d="M3 9h12M9 3l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="intro-card-preview">
+      <div class="intro-preview-item">🧠 SMART<br>אסטרטגיה וליווי</div>
+      <div class="intro-preview-item">🚀 DRIVE<br>קופי וקריאטיב</div>
+      <div class="intro-preview-item">🟢 GO<br>עיצוב ושיווק</div>
+    </div>
+  </div>
+
+  <!-- ═══ SCREEN: QUIZ ═══ -->
+  <div id="screen-quiz">
+    <div class="quiz-progress-wrap">
+      <div class="quiz-progress-bar">
+        <div class="quiz-progress-fill" id="progress-fill" style="width:0%"></div>
+      </div>
+      <span class="quiz-progress-label" id="progress-label">שאלה 1 מתוך 5</span>
+    </div>
+    <div id="quiz-q-container"></div>
+  </div>
+
+  <!-- ═══ SCREEN: RESULT ═══ -->
+  <div id="screen-result">
+    <p class="result-eyebrow">התשובה שלנו</p>
+    <h2 class="result-title" id="result-headline"></h2>
+    <p class="result-sub" id="result-subtext"></p>
+    <div id="result-card-wrap"></div>
+    <div class="result-also" id="result-also"></div>
+    <br>
+    <button class="result-restart" onclick="restartQuiz()">
+      ↺ &nbsp;נסי שוב עם תשובות אחרות
+    </button>
+  </div>
+
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      Smart Go Drive
+      <span>by SmartGo · smartgo.co.il</span>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">בלון חמצן</a>
+      <a href="services.html">שירותים</a>
+      <a href="https://smartgo.co.il">SmartGo</a>
+    </div>
+    <p class="footer-copy">© 2025 SmartGo</p>
+  </div>
+</footer>
+
+<script>
+/* ── QUESTIONS ── */
+const QUESTIONS = [
+  {
+    text: 'באיזה שלב נמצא העסק שלך?',
+    options: [
+      { text: 'רק מתחילה — פחות משנה', icon: '🌱', scores: { small:2, smart:1 } },
+      { text: 'עסק קיים — שנה עד שלוש', icon: '🚗', scores: { smart:1, drive:1, big:1 } },
+      { text: 'עסק בוגר — מעל שלוש שנים', icon: '🏆', scores: { retainer:2, go:1 } }
+    ]
+  },
+  {
+    text: 'מה מרגיש הכי "תקוע" אצלך?',
+    options: [
+      { text: 'אין לי כיוון ברור — אני מתפזרת', icon: '🗺️', scores: { smart:3 } },
+      { text: 'יש לי קהל אבל הם לא קונים', icon: '📧', scores: { drive:3 } },
+      { text: 'הנראות שלי לא מייצגת אותי', icon: '🎨', scores: { go:3 } },
+      { text: 'הכל ביחד — אני צריכה ריסטארט', icon: '🔄', scores: { big:2, smart:1 } }
+    ]
+  },
+  {
+    text: 'מה היית הכי רוצה לקבל?',
+    options: [
+      { text: 'תוכנית עבודה שאני יכולה לפעול לפיה', icon: '📋', scores: { smart:2 } },
+      { text: 'מיילים וקופי שממירים לקוחות', icon: '✍️', scores: { drive:2 } },
+      { text: 'מיתוג ועיצוב שעוצרים את הגלילה', icon: '✨', scores: { go:2 } },
+      { text: 'שמישהי תנהל את השיווק עבורי', icon: '🤝', scores: { retainer:3 } }
+    ]
+  },
+  {
+    text: 'מה הגישה שמתאימה לך?',
+    options: [
+      { text: 'פגישה אחת ממוקדת — לצאת עם כיוון מהיר', icon: '⚡', scores: { small:3 } },
+      { text: 'תהליך עמוק שמשנה את התשתית', icon: '🏗️', scores: { big:3 } },
+      { text: 'שיתוף פעולה חודשי קבוע — שקט נפשי', icon: '🌙', scores: { retainer:3 } }
+    ]
+  },
+  {
+    text: 'מה הכי חשוב לך לראות בסוף?',
+    options: [
+      { text: 'בהירות — לדעת בדיוק מה לעשות', icon: '💡', scores: { smart:2, small:1 } },
+      { text: 'תוצאות — יותר לקוחות ויותר מכירות', icon: '📈', scores: { drive:2, big:1 } },
+      { text: 'ביטחון — מותג שאני גאה להציג', icon: '💜', scores: { go:2 } },
+      { text: 'זמן — להפסיק לעסוק בשיווק בעצמי', icon: '⏰', scores: { retainer:2 } }
+    ]
+  }
+];
+
+/* ── RESULTS MAP ── */
+const RESULTS = {
+  'smart-small': {
+    dept:'smart', plan:'Small', deptLabel:'🧠 SMART',
+    title:'פגישת יעוץ אסטרטגי',
+    tagline:'בהירות מלאה בפגישה אחת',
+    price:'1,200', suffix:'ש"ח',
+    desc:'את צריכה מישהי שתשב איתך שעה אחת, תפרק את הבלגן, ותעזור לך לצאת עם החלטות ברורות שאפשר ליישם כבר מחר.',
+    includes:['פגישת זום ממוקדת של שעה','ניתוח מצב קיים + אבחון','3 המלצות אסטרטגיות מדויקות','סיכום בכתב אחרי הפגישה'],
+    cta:'אני רוצה בהירות',
+    alsoTitle:'לאחר הפגישה, רוב הלקוחות ממשיכות ל...',
+    alsoText:'תהליך ליווי Big שבונה את התשתית המלאה. הפגישה הראשונה עוזרת לנו להבין יחד מה בדיוק צריך.'
+  },
+  'smart-big': {
+    dept:'smart', plan:'Big', deptLabel:'🧠 SMART',
+    title:'תהליך ליווי — 8 מפגשים',
+    tagline:'השקעה שמחזירה את עצמה',
+    price:'12,000', suffix:'ש"ח',
+    desc:'את לא צריכה עוד יעוץ נקודתי — את צריכה תשתית. 8 מפגשים שיבנו מודל עסקי, אסטרטגיה ותוכנית שיווק שאפשר לעבוד לפיה שנים.',
+    includes:['8 מפגשי זום שבועיים','ניתוח שוק ומתחרות','מודל עסקי + מיצוב','תוכנית שיווק שנתית','מענה שוטף בין מפגשים','חומרי עבודה ותבניות'],
+    cta:'בואי נבנה את הבסיס',
+    alsoTitle:'אחרי התהליך, הרבה ממשיכות עם...',
+    alsoText:'ריטיינר SMART חודשי שמשמר ומפתח את מה שנבנה. או עוברות ל-DRIVE לכתוב את המסרים שיישמרו את האסטרטגיה.'
+  },
+  'smart-retainer': {
+    dept:'smart', plan:'Retainer', deptLabel:'🧠 SMART',
+    title:'ליווי חודשי — 2 פגישות + מענה',
+    tagline:'כמו מנהלת שיווק פנימית',
+    price:'1,800', suffix:'ש"ח / חודש',
+    desc:'את יודעת לאן ללכת — את פשוט צריכה מישהי לצד שתשמור על הכיוון. שתי פגישות בחודש ומענה לכל שאלה.',
+    includes:['2 פגישות זום בחודש','מענה בוואטסאפ תוך 24 שעות','סקירת קמפיינים פעילים','עדכוני אסטרטגיה חודשיים'],
+    cta:'אני רוצה שקט חודשי',
+    alsoTitle:'מתאים במיוחד אם...',
+    alsoText:'יש לך כבר בסיס טוב ואת רוצה לשמר ולצמוח בהדרגה. אפשר לשלב עם GO או DRIVE לפי הצורך.'
+  },
+  'drive-small': {
+    dept:'drive', plan:'Small', deptLabel:'🚀 DRIVE',
+    title:'פגישת פיצוח ורעיונאות',
+    tagline:'רעיונות מוכנים לשימוש מחר',
+    price:'1,200', suffix:'ש"ח',
+    desc:'שיחת סיעור מוחות שבסיומה מסמך עם רעיונות קריאייטיב, מסרים ואסטרטגיה מותאמת לעסק שלך. היישום עלייך.',
+    includes:['פגישת זום של שעה','סיעור מוחות קריאייטיבי','מסמך רעיונות + מסרים','3 רעיונות לתוכן מוכנים'],
+    cta:'תני לי רעיונות',
+    alsoTitle:'לאחר הפגישה, הרבה ממשיכות ל...',
+    alsoText:'סדרת 4 מיילים שמיישמת את הרעיונות שיצאו מהפגישה. כי רעיון טוב שיושם — הוא מה שמוכר.'
+  },
+  'drive-big': {
+    dept:'drive', plan:'Big', deptLabel:'🚀 DRIVE',
+    title:'כתיבת סדרת 4 מיילים',
+    tagline:'סדרה שמוכרת מהמייל הראשון',
+    price:'2,800', suffix:'ש"ח',
+    desc:'4 מיילים שמובילים את הקוראים מסקרנות לרכישה. כל מייל בנוי על הקודם, ויחד הם יוצרים מסלול מכירה שמרגיש טבעי.',
+    includes:['4 מיילים כתובים ומוכנים','שורות נושא A+B לכל מייל','קריאות לפעולה ממוקדות','הנחיות תזמון ושליחה','סבב תיקונים אחד'],
+    cta:'אני רוצה מיילים שמוכרים',
+    alsoTitle:'אחרי הסדרה, כדאי לשקול...',
+    alsoText:'ריטיינר DRIVE חודשי שמוסיף 3-4 מיילים בכל חודש — כדי שהרשימה שלך תישאר חמה ומוכנה לקנות.'
+  },
+  'drive-retainer': {
+    dept:'drive', plan:'Retainer', deptLabel:'🚀 DRIVE',
+    title:'כתיבת 3–4 מיילים בחודש',
+    tagline:'ניוזלטר שכותב את עצמו',
+    price:'1,800', suffix:'ש"ח / חודש',
+    desc:'כל חודש הרשימה שלך מקבלת מיילים שמחממים ומוכרים. את מאשרת, אני כותבת, הלקוחות קוראות.',
+    includes:['3–4 מיילים כתובים בחודש','שורות נושא מרובות לבחירה','תיאום תוכן חודשי קצר','דוח ביצועים חודשי'],
+    cta:'קחי ממני את הכתיבה',
+    alsoTitle:'שווה לשקול גם...',
+    alsoText:'שילוב עם ריטיינר GO לעיצוב המיילים — כי תוכן טוב שנראה מקצועי הוא הסינרגיה המנצחת.'
+  },
+  'go-small': {
+    dept:'go', plan:'Small', deptLabel:'🟢 GO',
+    title:'מודעה / עיצוב',
+    tagline:'עיצוב אחד שעוצר את הגלילה',
+    price:'2,500', suffix:'ש"ח',
+    desc:'מודעה בודדת שמשדרת מקצועיות, ממותגת ומוכנה לפרסום בכל הפורמטים.',
+    includes:['עיצוב מודעה אחת מלא','2 וריאציות צבע לבחירה','כל הפורמטים (פיד, סטורי, ריל)','קובץ עריכה מסודר'],
+    cta:'אני רוצה עיצוב מנצח',
+    alsoTitle:'הצעד הבא הגיוני...',
+    alsoText:'ריטיינר GO חודשי שמבטיח שהפיד שלך תמיד נראה כך. חסכוני יותר ממודעות בודדות לאורך זמן.'
+  },
+  'go-big': {
+    dept:'go', plan:'Big', deptLabel:'🟢 GO',
+    title:'מיתוג קומפלט',
+    tagline:'זהות ויזואלית שמשדרת ליגה אחרת',
+    price:'6,800', suffix:'ש"ח',
+    desc:'מלוגו ועד מדריך מותג מלא — הכל בנוי כדי שהלקוחות יבינו מיד שאת בליגה אחרת.',
+    includes:['לוגו + וריאציות שימוש','פלטת צבעים + טיפוגרפיה','מדריך מותג מלא (Brand Guide)','תבניות לרשתות החברתיות','קבצי עריכה (AI / Canva)'],
+    cta:'תארזי לי את העסק',
+    alsoTitle:'אחרי המיתוג, הצעד המומלץ...',
+    alsoText:'ריטיינר GO חודשי שישתמש בשפה החדשה ויייצר תוכן עקבי — כדי שההשקעה במיתוג תמשיך לעבוד.'
+  },
+  'go-retainer': {
+    dept:'go', plan:'Retainer', deptLabel:'🟢 GO',
+    title:'עיצוב חודשי — ריטיינר',
+    tagline:'נראות קבועה בלי כאב ראש',
+    price:'1,200', suffix:'ש"ח / חודש',
+    desc:'ריטיינר עיצוב חודשי שמבטיח שהפיד שלך תמיד נראה מקצועי ומרשים. אני מעצבת, את מפרסמת.',
+    includes:['עד 4 מודעות מעוצבות בחודש','2 וריאציות צבע לכל מודעה','כל הפורמטים (פיד, סטורי, ריל)','זמן תגובה של עד 48 שעות'],
+    cta:'תעשי לי יפה בפיד',
+    alsoTitle:'שווה לשלב עם...',
+    alsoText:'ריטיינר DRIVE לכתיבה — כי עיצוב יפה עם קופי מנצח הוא השילוב שמוכר.'
+  }
+};
+
+/* ── STATE ── */
+let currentQ = 0;
+let scores = { smart:0, drive:0, go:0, small:0, big:0, retainer:0 };
+let selectedAnswer = null;
+
+/* ── INIT ── */
+function startQuiz() {
+  document.getElementById('screen-intro').style.display = 'none';
+  document.getElementById('screen-quiz').style.display = 'block';
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = QUESTIONS[currentQ];
+  const pct = (currentQ / QUESTIONS.length) * 100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = `שאלה ${currentQ + 1} מתוך ${QUESTIONS.length}`;
+  selectedAnswer = null;
+
+  const container = document.getElementById('quiz-q-container');
+  container.innerHTML = `
+    <div class="quiz-q-wrap">
+      <p class="quiz-q-num">שאלה ${currentQ + 1}</p>
+      <h2 class="quiz-q-text">${q.text}</h2>
+      <div class="quiz-options" id="options-grid">
+        ${q.options.map((opt, i) => `
+          <button class="quiz-option" onclick="selectOption(${i})" data-idx="${i}">
+            <span class="quiz-option-icon">${opt.icon}</span>
+            <span class="quiz-option-text">${opt.text}</span>
+          </button>
+        `).join('')}
+      </div>
+      <button class="quiz-next-btn" id="next-btn" onclick="nextQuestion()">
+        ${currentQ < QUESTIONS.length - 1 ? 'השאלה הבאה →' : 'תני לי את התשובה ←'}
+      </button>
+    </div>
+  `;
+}
+
+function selectOption(idx) {
+  selectedAnswer = idx;
+  document.querySelectorAll('.quiz-option').forEach((el, i) => {
+    el.classList.toggle('selected', i === idx);
+  });
+  const btn = document.getElementById('next-btn');
+  btn.style.display = 'inline-flex';
+
+  // Auto-advance after short delay for snappy feel
+  setTimeout(() => { if (selectedAnswer === idx) nextQuestion(); }, 600);
+}
+
+function nextQuestion() {
+  if (selectedAnswer === null) return;
+  const optScores = QUESTIONS[currentQ].options[selectedAnswer].scores;
+  Object.entries(optScores).forEach(([k, v]) => { scores[k] = (scores[k] || 0) + v; });
+  currentQ++;
+  if (currentQ < QUESTIONS.length) {
+    renderQuestion();
+  } else {
+    showResult();
+  }
+}
+
+function showResult() {
+  document.getElementById('screen-quiz').style.display = 'none';
+  const dept  = ['smart','drive','go'].sort((a,b) => scores[b]-scores[a])[0];
+  const plan  = ['small','big','retainer'].sort((a,b) => scores[b]-scores[a])[0];
+  const key   = `${dept}-${plan}`;
+  const r     = RESULTS[key] || RESULTS['smart-small'];
+  const checkSvg = `<svg viewBox="0 0 10 8"><polyline points="1 4 3.5 6.5 9 1" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+  document.getElementById('result-headline').textContent = 'מצאנו את מה שמתאים לך.';
+  document.getElementById('result-subtext').textContent  = 'על סמך התשובות שלך, זה מה שהיינו ממליצות לך:';
+
+  const planLabel = { small:'Small — כניסה', big:'Big — פרויקט מלא', retainer:'Retainer — חודשי' };
+
+  document.getElementById('result-card-wrap').innerHTML = `
+    <div class="result-card">
+      <div class="result-card-stripe ${r.dept}"></div>
+      <div class="result-card-head">
+        <span class="result-dept-label">${r.deptLabel}</span>
+        <span class="result-plan-badge">${planLabel[plan]}</span>
+      </div>
+      <div class="result-card-body">
+        <div class="result-service-price">
+          <span class="result-price-num">${r.price}</span>
+          <span class="result-price-suf">${r.suffix}</span>
+        </div>
+        <h3 class="result-service-title">${r.title}</h3>
+        <p class="result-tagline">${r.tagline}</p>
+        <p class="result-desc">${r.desc}</p>
+        <ul class="result-includes">
+          ${r.includes.map(inc => `
+            <li class="result-include-item">
+              <span class="result-check">${checkSvg}</span>
+              <span>${inc}</span>
+            </li>`).join('')}
+        </ul>
+        <a href="services.html#contact" class="result-cta">
+          ${r.cta}
+          <svg viewBox="0 0 14 14"><path d="M2 12L12 2M12 2H5M12 2v7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('result-also').innerHTML = `
+    <div class="result-also-title">${r.alsoTitle}</div>
+    <div class="result-also-text">${r.alsoText}</div>
+  `;
+
+  const screen = document.getElementById('screen-result');
+  screen.style.display = 'block';
+  screen.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function restartQuiz() {
+  currentQ = 0;
+  scores = { smart:0, drive:0, go:0, small:0, big:0, retainer:0 };
+  selectedAnswer = null;
+  document.getElementById('screen-result').style.display = 'none';
+  document.getElementById('screen-quiz').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  renderQuestion();
+}
+</script>
+</body>
+</html>
