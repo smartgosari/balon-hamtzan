@@ -190,7 +190,7 @@
       border-radius: 1rem;
       padding: 1.25rem 1.4rem;
       cursor: pointer;
-      display: flex; align-items: flex-start; gap: .85rem;
+      display: flex; align-items: center;
       box-shadow: 4px 4px 0 var(--purple);
       transition: transform .12s, box-shadow .12s, background .12s;
       text-align: right;
@@ -204,9 +204,6 @@
       transform: translate(-2px,-2px);
       box-shadow: 6px 6px 0 var(--dark);
       border-color: var(--dark);
-    }
-    .quiz-option-icon {
-      font-size: 1.4rem; flex-shrink: 0; margin-top: 1px;
     }
     .quiz-option-text {
       font-size: .9rem; font-weight: 700; line-height: 1.4;
@@ -420,9 +417,9 @@
       <svg viewBox="0 0 18 18"><path d="M3 9h12M9 3l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="intro-card-preview">
-      <div class="intro-preview-item">🧠 SMART<br>אסטרטגיה וליווי</div>
-      <div class="intro-preview-item">🚀 DRIVE<br>קופי וקריאטיב</div>
-      <div class="intro-preview-item">🟢 GO<br>עיצוב ושיווק</div>
+      <div class="intro-preview-item">SMART<br>אסטרטגיה וליווי</div>
+      <div class="intro-preview-item">DRIVE<br>קופי וקריאטיב</div>
+      <div class="intro-preview-item">GO<br>עיצוב ושיווק</div>
     </div>
   </div>
 
@@ -475,44 +472,46 @@ const QUESTIONS = [
   {
     text: 'באיזה שלב נמצא העסק שלך?',
     options: [
-      { text: 'רק מתחילה — פחות משנה', icon: '🌱', scores: { small:2, smart:1 } },
-      { text: 'עסק קיים — שנה עד שלוש', icon: '🚗', scores: { smart:1, drive:1, big:1 } },
-      { text: 'עסק בוגר — מעל שלוש שנים', icon: '🏆', scores: { retainer:2, go:1 } }
+      { text: 'רק מתחילה — פחות משנה', scores: { small:2, smart:1 } },
+      { text: 'עסק קיים — שנה עד שלוש', scores: { smart:1, drive:1, big:1 } },
+      { text: 'עסק בוגר — מעל שלוש שנים', scores: { retainer:2, go:1 } }
     ]
   },
   {
     text: 'מה מרגיש הכי "תקוע" אצלך?',
     options: [
-      { text: 'אין לי כיוון ברור — אני מתפזרת', icon: '🗺️', scores: { smart:3 } },
-      { text: 'יש לי קהל אבל הם לא קונים', icon: '📧', scores: { drive:3 } },
-      { text: 'הנראות שלי לא מייצגת אותי', icon: '🎨', scores: { go:3 } },
-      { text: 'הכל ביחד — אני צריכה ריסטארט', icon: '🔄', scores: { big:2, smart:1 } }
+      { text: 'אין לי כיוון ברור — אני מתפזרת', scores: { smart:3 } },
+      { text: 'יש לי קהל אבל הם לא קונים', scores: { drive:3 } },
+      { text: 'הנראות שלי לא מייצגת אותי', scores: { go:3 } },
+      { text: 'הכל ביחד — אני צריכה ריסטארט', scores: { big:2, smart:1 } },
+      { text: 'אין לי זמן ואני צריכה עזרה', scores: { retainer:2, drive:1 } },
+      { text: 'אני לא טובה בקופי/קריאטיב', scores: { drive:3 } }
     ]
   },
   {
     text: 'מה היית הכי רוצה לקבל?',
     options: [
-      { text: 'תוכנית עבודה שאני יכולה לפעול לפיה', icon: '📋', scores: { smart:2 } },
-      { text: 'מיילים וקופי שממירים לקוחות', icon: '✍️', scores: { drive:2 } },
-      { text: 'מיתוג ועיצוב שעוצרים את הגלילה', icon: '✨', scores: { go:2 } },
-      { text: 'שמישהי תנהל את השיווק עבורי', icon: '🤝', scores: { retainer:3 } }
+      { text: 'תוכנית עבודה שאני יכולה לפעול לפיה', scores: { smart:2 } },
+      { text: 'מיילים וקופי שממירים לקוחות', scores: { drive:2 } },
+      { text: 'מיתוג ועיצוב שעוצרים את הגלילה', scores: { go:2 } },
+      { text: 'שמישהי תנהל את השיווק עבורי', scores: { retainer:3 } }
     ]
   },
   {
     text: 'מה הגישה שמתאימה לך?',
     options: [
-      { text: 'פגישה אחת ממוקדת — לצאת עם כיוון מהיר', icon: '⚡', scores: { small:3 } },
-      { text: 'תהליך עמוק שמשנה את התשתית', icon: '🏗️', scores: { big:3 } },
-      { text: 'שיתוף פעולה חודשי קבוע — שקט נפשי', icon: '🌙', scores: { retainer:3 } }
+      { text: 'פגישה אחת ממוקדת — לצאת עם כיוון מהיר', scores: { small:3 } },
+      { text: 'תהליך עמוק שמשנה את התשתית', scores: { big:3 } },
+      { text: 'שיתוף פעולה חודשי קבוע — שקט נפשי', scores: { retainer:3 } }
     ]
   },
   {
     text: 'מה הכי חשוב לך לראות בסוף?',
     options: [
-      { text: 'בהירות — לדעת בדיוק מה לעשות', icon: '💡', scores: { smart:2, small:1 } },
-      { text: 'תוצאות — יותר לקוחות ויותר מכירות', icon: '📈', scores: { drive:2, big:1 } },
-      { text: 'ביטחון — מותג שאני גאה להציג', icon: '💜', scores: { go:2 } },
-      { text: 'זמן — להפסיק לעסוק בשיווק בעצמי', icon: '⏰', scores: { retainer:2 } }
+      { text: 'בהירות — לדעת בדיוק מה לעשות', scores: { smart:2, small:1 } },
+      { text: 'תוצאות — יותר לקוחות ויותר מכירות', scores: { drive:2, big:1 } },
+      { text: 'ביטחון — מותג שאני גאה להציג', scores: { go:2 } },
+      { text: 'זמן — להפסיק לעסוק בשיווק בעצמי', scores: { retainer:2 } }
     ]
   }
 ];
@@ -520,7 +519,7 @@ const QUESTIONS = [
 /* ── RESULTS MAP ── */
 const RESULTS = {
   'smart-small': {
-    dept:'smart', plan:'Small', deptLabel:'🧠 SMART',
+    dept:'smart', plan:'Small', deptLabel:'SMART',
     title:'פגישת יעוץ אסטרטגי',
     tagline:'בהירות מלאה בפגישה אחת',
     price:'1,200', suffix:'ש"ח',
@@ -531,7 +530,7 @@ const RESULTS = {
     alsoText:'תהליך ליווי Big שבונה את התשתית המלאה. הפגישה הראשונה עוזרת לנו להבין יחד מה בדיוק צריך.'
   },
   'smart-big': {
-    dept:'smart', plan:'Big', deptLabel:'🧠 SMART',
+    dept:'smart', plan:'Big', deptLabel:'SMART',
     title:'תהליך ליווי — 8 מפגשים',
     tagline:'השקעה שמחזירה את עצמה',
     price:'12,000', suffix:'ש"ח',
@@ -542,7 +541,7 @@ const RESULTS = {
     alsoText:'ריטיינר SMART חודשי שמשמר ומפתח את מה שנבנה. או עוברות ל-DRIVE לכתוב את המסרים שיישמרו את האסטרטגיה.'
   },
   'smart-retainer': {
-    dept:'smart', plan:'Retainer', deptLabel:'🧠 SMART',
+    dept:'smart', plan:'Retainer', deptLabel:'SMART',
     title:'ליווי חודשי — 2 פגישות + מענה',
     tagline:'כמו מנהלת שיווק פנימית',
     price:'1,800', suffix:'ש"ח / חודש',
@@ -553,7 +552,7 @@ const RESULTS = {
     alsoText:'יש לך כבר בסיס טוב ואת רוצה לשמר ולצמוח בהדרגה. אפשר לשלב עם GO או DRIVE לפי הצורך.'
   },
   'drive-small': {
-    dept:'drive', plan:'Small', deptLabel:'🚀 DRIVE',
+    dept:'drive', plan:'Small', deptLabel:'DRIVE',
     title:'פגישת פיצוח ורעיונאות',
     tagline:'רעיונות מוכנים לשימוש מחר',
     price:'1,200', suffix:'ש"ח',
@@ -564,7 +563,7 @@ const RESULTS = {
     alsoText:'סדרת 4 מיילים שמיישמת את הרעיונות שיצאו מהפגישה. כי רעיון טוב שיושם — הוא מה שמוכר.'
   },
   'drive-big': {
-    dept:'drive', plan:'Big', deptLabel:'🚀 DRIVE',
+    dept:'drive', plan:'Big', deptLabel:'DRIVE',
     title:'כתיבת סדרת 4 מיילים',
     tagline:'סדרה שמוכרת מהמייל הראשון',
     price:'2,800', suffix:'ש"ח',
@@ -575,7 +574,7 @@ const RESULTS = {
     alsoText:'ריטיינר DRIVE חודשי שמוסיף 3-4 מיילים בכל חודש — כדי שהרשימה שלך תישאר חמה ומוכנה לקנות.'
   },
   'drive-retainer': {
-    dept:'drive', plan:'Retainer', deptLabel:'🚀 DRIVE',
+    dept:'drive', plan:'Retainer', deptLabel:'DRIVE',
     title:'כתיבת 3–4 מיילים בחודש',
     tagline:'ניוזלטר שכותב את עצמו',
     price:'1,800', suffix:'ש"ח / חודש',
@@ -586,7 +585,7 @@ const RESULTS = {
     alsoText:'שילוב עם ריטיינר GO לעיצוב המיילים — כי תוכן טוב שנראה מקצועי הוא הסינרגיה המנצחת.'
   },
   'go-small': {
-    dept:'go', plan:'Small', deptLabel:'🟢 GO',
+    dept:'go', plan:'Small', deptLabel:'GO',
     title:'מודעה / עיצוב',
     tagline:'עיצוב אחד שעוצר את הגלילה',
     price:'2,500', suffix:'ש"ח',
@@ -597,7 +596,7 @@ const RESULTS = {
     alsoText:'ריטיינר GO חודשי שמבטיח שהפיד שלך תמיד נראה כך. חסכוני יותר ממודעות בודדות לאורך זמן.'
   },
   'go-big': {
-    dept:'go', plan:'Big', deptLabel:'🟢 GO',
+    dept:'go', plan:'Big', deptLabel:'GO',
     title:'מיתוג קומפלט',
     tagline:'זהות ויזואלית שמשדרת ליגה אחרת',
     price:'6,800', suffix:'ש"ח',
@@ -608,7 +607,7 @@ const RESULTS = {
     alsoText:'ריטיינר GO חודשי שישתמש בשפה החדשה ויייצר תוכן עקבי — כדי שההשקעה במיתוג תמשיך לעבוד.'
   },
   'go-retainer': {
-    dept:'go', plan:'Retainer', deptLabel:'🟢 GO',
+    dept:'go', plan:'Retainer', deptLabel:'GO',
     title:'עיצוב חודשי — ריטיינר',
     tagline:'נראות קבועה בלי כאב ראש',
     price:'1,200', suffix:'ש"ח / חודש',
@@ -647,7 +646,6 @@ function renderQuestion() {
       <div class="quiz-options" id="options-grid">
         ${q.options.map((opt, i) => `
           <button class="quiz-option" onclick="selectOption(${i})" data-idx="${i}">
-            <span class="quiz-option-icon">${opt.icon}</span>
             <span class="quiz-option-text">${opt.text}</span>
           </button>
         `).join('')}
