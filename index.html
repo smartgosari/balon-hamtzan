@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>בלון חמצן — ניוזלטר שבועי לבעלות עסקים</title>
+  <title>בלון חמצן -ניוזלטר שבועי לבעלות עסקים</title>
   <style>
     @font-face { font-family:'Leon';   src:url('פונטים/Leon-Bold.otf')       format('opentype'); font-weight:700 900; font-display:swap; }
     @font-face { font-family:'Leon';   src:url('פונטים/Leon-Regular.otf')    format('opentype'); font-weight:300 500; font-display:swap; }
@@ -33,34 +33,6 @@
       text-align: right;
       overflow-x: hidden;
     }
-
-    /* ── SIDE BALLOON STRING ── */
-    #side-indicator {
-      position:fixed; left:18px; top:0; bottom:0; z-index:50;
-      display:flex; flex-direction:column; align-items:center;
-      pointer-events:none;
-    }
-    #side-indicator svg { width:28px; }
-    #scroll-bead {
-      position:fixed; left:25px; top:80px;
-      width:8px; height:8px;
-      background:var(--pink); border-radius:50%;
-      z-index:51; pointer-events:none;
-      transition:top .1s ease;
-    }
-
-    /* ── SECTION DOTS ── */
-    #section-dots {
-      position:fixed; left:18px; top:50%; transform:translateY(-50%);
-      display:flex; flex-direction:column; gap:8px;
-      z-index:50; pointer-events:none;
-    }
-    .s-dot {
-      width:6px; height:6px; border-radius:50%;
-      background:rgba(59,59,151,0.25);
-      transition: background .3s, transform .3s;
-    }
-    .s-dot.active { background:var(--purple); transform:scale(1.5); }
 
     /* ── NAV ── */
     .nav {
@@ -178,7 +150,7 @@
     .hero-card.accent .arrow-btn { background:var(--dark); }
     .arrow-btn svg { width:14px; height:14px; stroke:var(--white); fill:none; stroke-width:2; }
 
-    /* Right col — BIG title */
+    /* Right col -BIG title */
     .hero-right {
       display:flex; flex-direction:column;
       align-items:flex-start; justify-content:space-between;
@@ -622,8 +594,7 @@
       .campaigns-grid,
       .why-grid { grid-template-columns:1fr; }
       .cta-inner { grid-template-columns:1fr; }
-      #side-indicator, #scroll-bead, #section-dots { display:none; }
-      .quiz-strip-inner { flex-direction:column; padding:3rem 1.25rem; }
+.quiz-strip-inner { flex-direction:column; padding:3rem 1.25rem; }
       .index-testi-grid { grid-template-columns:1fr; }
       .index-testi-inner { padding:3.5rem 1.25rem; }
       .footer-inner { flex-direction:column; gap:1.25rem; text-align:center; padding:2rem 1.25rem; }
@@ -632,27 +603,10 @@
 </head>
 <body>
 
-<!-- SIDE BALLOON STRING -->
-<div id="side-indicator">
-  <svg viewBox="0 0 28 800" fill="none" preserveAspectRatio="none" style="height:100vh">
-    <ellipse cx="14" cy="20" rx="8" ry="10" stroke="#74d4d9" stroke-width="1.5" fill="rgba(116,212,217,0.1)"/>
-    <line x1="14" y1="30" x2="14" y2="800" stroke="rgba(59,59,151,0.15)" stroke-width="1.5" stroke-dasharray="4 4"/>
-  </svg>
-</div>
-<div id="scroll-bead"></div>
-
-<!-- SECTION DOTS -->
-<div id="section-dots">
-  <div class="s-dot active" data-section="0"></div>
-  <div class="s-dot" data-section="1"></div>
-  <div class="s-dot" data-section="2"></div>
-  <div class="s-dot" data-section="3"></div>
-</div>
-
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-inner">
-    <div class="nav-version">גרסה 01 — אביב 2026</div>
+    <div class="nav-version">גרסה 01 -אביב 2026</div>
     <ul class="nav-links">
       <li><a href="#campaigns">מה יש בפנים</a></li>
       <li><a href="#why">למה זה שונה</a></li>
@@ -791,10 +745,10 @@
           <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="ccard-expand"><div>
-          <p class="ccard-insight">שאנל ויתרה על השלמות העיצובית כדי להרוויח משהו חזק יותר: אותנטיות. שלמות פלסטית מרחיקה אנשים — אנושיות וחוסר-שלמות מקרבים אותם.</p>
+          <p class="ccard-insight">שאנל ויתרה על השלמות העיצובית כדי להרוויח משהו חזק יותר: אותנטיות. שלמות פלסטית מרחיקה אנשים -אנושיות וחוסר-שלמות מקרבים אותם.</p>
           <div class="ccard-question">
             <div class="ccard-q-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01" stroke-linecap="round"/></svg></div>
-            <p class="ccard-q-text">כמה פעמים דחית השקה כי "העיצוב עדיין לא מושלם"? מה יקרה אם תפרסמי אותה היום — מקושקשת ואמיתית?</p>
+            <p class="ccard-q-text">כמה פעמים דחית השקה כי "העיצוב עדיין לא מושלם"? מה יקרה אם תפרסמי אותה היום -מקושקשת ואמיתית?</p>
           </div>
         </div></div>
       </div>
@@ -822,7 +776,7 @@
           <span class="ccard-brand">Volkswagen</span>
           <span class="ccard-tag">Think Small</span>
         </div>
-        <h3 class="ccard-headline">כיצד מכרו רכב גרמני מוזר לאמריקאים שאהבו ענקיות — ושינו את עולם הפרסום?</h3>
+        <h3 class="ccard-headline">כיצד מכרו רכב גרמני מוזר לאמריקאים שאהבו ענקיות -ושינו את עולם הפרסום?</h3>
         <button class="ccard-toggle" aria-expanded="false">
           <span>קראי עוד</span>
           <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
@@ -831,7 +785,7 @@
           <p class="ccard-insight">במקום לייפות את המציאות, הם הבליטו בכוונה את העובדה שהוא קטן. "תחשבו קטן" הפך לאחד הקמפיינים המוצלחים בהיסטוריה.</p>
           <div class="ccard-question">
             <div class="ccard-q-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01" stroke-linecap="round"/></svg></div>
-            <p class="ccard-q-text">את מנסה "להיראות כחברה גדולה" — או שאת מבליטה את היחס האישי שרק עסק בוטיק של אישה אחת יכולה לתת?</p>
+            <p class="ccard-q-text">את מנסה "להיראות כחברה גדולה" -או שאת מבליטה את היחס האישי שרק עסק בוטיק של אישה אחת יכולה לתת?</p>
           </div>
         </div></div>
       </div>
@@ -865,10 +819,10 @@
           <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="ccard-expand"><div>
-          <p class="ccard-insight">הם גזרו את הפתקים כך שייראו כמו חבילת ספגטי. חדשנות לא דורשת תקציב ענק — היא דורשת הסתכלות חדשה על פלטפורמה קיימת.</p>
+          <p class="ccard-insight">הם גזרו את הפתקים כך שייראו כמו חבילת ספגטי. חדשנות לא דורשת תקציב ענק -היא דורשת הסתכלות חדשה על פלטפורמה קיימת.</p>
           <div class="ccard-question">
             <div class="ccard-q-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01" stroke-linecap="round"/></svg></div>
-            <p class="ccard-q-text">איזו פלטפורמה שכולן כבר משתמשות בה (רילס, וואטסאפ, סטורי) יכולה לקבל אצלך טוויסט אחד קטן שיהפוך אותה לבלתי נשכחת?</p>
+            <p class="ccard-q-text">איזה ערוץ שיווק שכולן כבר משתמשות בו יכול לקבל אצלך טוויסט אחד קטן שיהפוך אותו לבלתי נשכח?</p>
           </div>
         </div></div>
       </div>
@@ -902,10 +856,10 @@
           <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="ccard-expand"><div>
-          <p class="ccard-insight">המסר: "מחר מתחיל הלילה". אל תמכרי תכונות (Features) — תמכרי את המהפך (Transformation) שהמוצר מייצר.</p>
+          <p class="ccard-insight">המסר: "מחר מתחיל הלילה". אל תמכרי תכונות (Features) -תמכרי את המהפך (Transformation) שהמוצר מייצר.</p>
           <div class="ccard-question">
             <div class="ccard-q-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01" stroke-linecap="round"/></svg></div>
-            <p class="ccard-q-text">מהי "תרופת הפלא" שהשירות שלך מספק? את מוכרת "שעות ייעוץ" — או "שקט נפשי", "ביטחון כלכלי" ו"יותר זמן עם הילדים"?</p>
+            <p class="ccard-q-text">מהי "תרופת הפלא" שהשירות שלך מספק? את מוכרת "שעות ייעוץ" -או "שקט נפשי", "ביטחון כלכלי" ו"יותר זמן עם הילדים"?</p>
           </div>
         </div></div>
       </div>
@@ -961,7 +915,7 @@
       </div>
       <div class="index-testi-card reveal d2">
         <div class="index-testi-stars">★★★★★</div>
-        <p class="index-testi-quote">"המיתוג שינה לי את הביטחון לגמרי. אני מעלה מחירים — ולקוחות לא מסרבות. המותג מוכר לפני שפתחתי פה."</p>
+        <p class="index-testi-quote">"המיתוג שינה לי את הביטחון לגמרי. אני מעלה מחירים -ולקוחות לא מסרבות. המותג מוכר לפני שפתחתי פה."</p>
         <div class="index-testi-author">
           <div class="index-testi-avatar">נ</div>
           <div>
@@ -1007,7 +961,7 @@
         <span class="sparkle">✦</span>
         <span class="why-card-num">01</span>
       </div>
-      <h3 class="why-card-title">קמפיין אחד בשבוע — לא יותר</h3>
+      <h3 class="why-card-title">קמפיין אחד בשבוע -לא יותר</h3>
       <p class="why-card-text">כי עומק עדיף על כמות. קוראת ומתקדמת, לא מוצפת.</p>
     </div>
     <div class="why-card reveal d1">
@@ -1032,7 +986,7 @@
         <span class="why-card-num">04</span>
       </div>
       <h3 class="why-card-title">רק לבעלות עסקים. לא לכולם.</h3>
-      <p class="why-card-text">נכתב בשבילך — לא בשביל אנשי שיווק בתאגידים.</p>
+      <p class="why-card-text">נכתב בשבילך -לא בשביל אנשי שיווק בתאגידים.</p>
     </div>
   </div>
 </div>
@@ -1055,28 +1009,6 @@
 </footer>
 
 <script>
-/* ── SCROLL BEAD ── */
-const bead = document.getElementById('scroll-bead');
-window.addEventListener('scroll', () => {
-  const p = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-  const top = 60 + p * (window.innerHeight - 120);
-  bead.style.top = top + 'px';
-});
-
-/* ── SECTION DOTS ── */
-const sectionEls = document.querySelectorAll('[data-section]');
-const dots = document.querySelectorAll('.s-dot');
-const dotObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if(e.isIntersecting){
-      const i = e.target.dataset.section;
-      dots.forEach(d=>d.classList.remove('active'));
-      if(dots[i]) dots[i].classList.add('active');
-    }
-  });
-}, { threshold:.4 });
-sectionEls.forEach(s => dotObs.observe(s));
-
 /* ── SCROLL REVEAL ── */
 const revObs = new IntersectionObserver(entries => {
   entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis'); });
