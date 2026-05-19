@@ -394,27 +394,50 @@
 
     .pcard-stripe { height:5px; flex-shrink:0; }
 
-    /* Card header row: dept + price side by side */
-    .pcard-head {
-      display:flex; align-items:center; justify-content:space-between;
-      padding:1.25rem 1.5rem .75rem;
-      border-bottom:1px solid var(--border);
+    /* Column headers above the cards */
+    .plan-cols-header {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:1.25rem;
+      margin-bottom:.6rem;
     }
-    .pcard-dept-badge {
-      font-size:.68rem; font-weight:700;
-      letter-spacing:.12em; text-transform:uppercase;
-      color:var(--purple); opacity:.5;
+    .plan-col-head {
+      padding:.9rem 1.4rem 1rem;
+      background:var(--white);
+      border:2px solid var(--purple);
+      border-radius:.75rem;
+      box-shadow:3px 3px 0 var(--purple);
     }
+    .plan-col-bar {
+      height:4px; border-radius:2px;
+      width:32px; margin-bottom:.55rem;
+    }
+    .plan-col-bar.smart { background:var(--dark); }
+    .plan-col-bar.drive { background:var(--pink); }
+    .plan-col-bar.go    { background:var(--teal); }
+    .plan-col-name {
+      font-family:var(--f-head); font-weight:900;
+      font-size:1rem; letter-spacing:.06em;
+      text-transform:uppercase; color:var(--purple);
+    }
+    .plan-col-sub {
+      font-size:.72rem; font-weight:700;
+      color:var(--purple); opacity:.42;
+      margin-top:.18rem;
+    }
+
+    /* Price badge inside card */
     .pcard-price-badge {
-      display:flex; align-items:baseline; gap:.25rem;
+      display:inline-flex; align-items:baseline; gap:.25rem;
       background:var(--bg);
       border:1.5px solid var(--border);
       border-radius:2rem;
-      padding:.3rem .85rem;
+      padding:.3rem .9rem;
+      margin-bottom:.25rem;
     }
     .pcard-price-num {
       font-family:var(--f-head); font-weight:900;
-      font-size:1.15rem; letter-spacing:-.03em; color:var(--purple);
+      font-size:1.2rem; letter-spacing:-.03em; color:var(--purple);
     }
     .pcard-price-suf {
       font-size:.72rem; color:var(--purple); opacity:.55;
@@ -516,6 +539,7 @@
     @media(max-width:768px) {
       .pricing-section { padding:3rem 0; }
       .pricing-wrap { padding:0 1.25rem; }
+      .plan-cols-header { display:none; }
       .plan-cards { grid-template-columns:1fr; }
       .plan-btn { padding:.55rem 1.1rem; font-size:.88rem; }
       .nav-inner { padding:.85rem 1.25rem; }
@@ -595,6 +619,24 @@
       <p class="plan-toggle-hint">
         Small = מפגש / פרויקט ראשון &nbsp;·&nbsp; Big = פרויקט מלא &nbsp;·&nbsp; Retainer = ליווי חודשי קבוע
       </p>
+    </div>
+
+    <div class="plan-cols-header">
+      <div class="plan-col-head">
+        <div class="plan-col-bar smart"></div>
+        <div class="plan-col-name">SMART</div>
+        <div class="plan-col-sub">אסטרטגיה וליווי עסקי</div>
+      </div>
+      <div class="plan-col-head">
+        <div class="plan-col-bar drive"></div>
+        <div class="plan-col-name">DRIVE</div>
+        <div class="plan-col-sub">קופי וקריאטיב</div>
+      </div>
+      <div class="plan-col-head">
+        <div class="plan-col-bar go"></div>
+        <div class="plan-col-name">GO</div>
+        <div class="plan-col-sub">עיצוב ושיווק</div>
+      </div>
     </div>
 
     <div class="plan-cards" id="plan-cards"></div>
@@ -756,14 +798,11 @@ function renderPlanCards(plan) {
     container.insertAdjacentHTML('beforeend', `
       <div class="pcard">
         <div class="pcard-stripe ${item.stripe}"></div>
-        <div class="pcard-head">
-          <span class="pcard-dept-badge">${item.dept}</span>
+        <div class="pcard-body">
           <div class="pcard-price-badge">
             <span class="pcard-price-num">${item.price}</span>
             <span class="pcard-price-suf">${item.suffix}</span>
           </div>
-        </div>
-        <div class="pcard-body">
           <h3 class="pcard-title">${item.title}</h3>
           <p class="pcard-tagline">${item.tagline}</p>
           <p class="pcard-desc">${item.desc}</p>
