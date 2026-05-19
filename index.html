@@ -434,54 +434,142 @@
     /* ── CAMPAIGNS SUB-GRID ── */
     .campaigns-subgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; }
 
-    /* ── CARD STORY EXPAND ── */
-    .ccard-teaser {
+    /* ── CARD CLICKABLE ── */
+    .ccard, .ccard-hero { cursor:pointer; }
+    .ccard .ccard-teaser, .ccard-hero .ccard-teaser {
       font-size:.88rem; font-weight:700; line-height:1.55;
-      color:var(--purple); opacity:.52;
+      color:var(--purple); opacity:.52; margin-top:auto;
     }
-    .ccard-read-btn {
-      display:inline-flex; align-items:center; gap:.4rem;
-      background:none; border:none; padding:0;
-      font-family:var(--f-body); font-weight:700; font-size:.82rem;
-      color:var(--purple); opacity:.45; cursor:pointer;
-      transition:opacity .2s; align-self:flex-start;
+    .ccard-open-hint {
+      display:inline-flex; align-items:center; gap:.35rem;
+      font-size:.75rem; font-weight:700; color:var(--purple); opacity:.32;
+      margin-top:.5rem; pointer-events:none;
     }
-    .ccard-read-btn:hover { opacity:.88; }
-    .ccard-read-btn svg { transition:transform .35s; flex-shrink:0; fill:none; stroke:currentColor; stroke-width:2.5; }
-    .ccard.open .ccard-read-btn svg,
-    .ccard-hero.open .ccard-read-btn svg { transform:rotate(180deg); }
-    .ccard.open .ccard-read-btn,
-    .ccard-hero.open .ccard-read-btn { opacity:.65; }
+    .ccard-open-hint svg { fill:none; stroke:currentColor; stroke-width:2.2; }
+    .ccard:hover .ccard-open-hint,
+    .ccard-hero:hover .ccard-open-hint { opacity:.7; }
 
-    .ccard-story {
-      display:grid; grid-template-rows:0fr;
-      transition:grid-template-rows .45s cubic-bezier(.4,0,.2,1);
-      border-top:1.5px solid var(--border);
-      margin-top:.35rem;
+    /* ── STORY MODAL ── */
+    .story-modal {
+      position:fixed; inset:0; z-index:500;
+      background:rgba(22,22,58,.65);
+      backdrop-filter:blur(7px);
+      display:flex; align-items:flex-end; justify-content:center;
+      opacity:0; pointer-events:none;
+      transition:opacity .35s;
     }
-    .ccard-story > div { overflow:hidden; }
-    .ccard.open .ccard-story,
-    .ccard-hero.open .ccard-story { grid-template-rows:1fr; }
+    .story-modal.open { opacity:1; pointer-events:all; }
+    .story-panel {
+      width:100%; max-width:840px;
+      background:var(--bg);
+      border:2.5px solid var(--dark);
+      border-bottom:none;
+      border-radius:1.5rem 1.5rem 0 0;
+      box-shadow:-8px -8px 0 var(--dark);
+      max-height:92vh;
+      overflow-y:auto;
+      transform:translateY(110%);
+      transition:transform .5s cubic-bezier(.4,0,.2,1);
+    }
+    .story-modal.open .story-panel { transform:translateY(0); }
 
-    .story-inner { padding-top:.6rem; display:flex; flex-direction:column; gap:0; }
-    .story-section {
-      padding:.7rem 0;
-      border-bottom:1px dashed rgba(59,59,151,.1);
+    .sp-win {
+      position:sticky; top:0; z-index:2;
+      display:flex; align-items:center; gap:.75rem;
+      padding:.65rem 1.35rem;
+      border-bottom:2px solid var(--dark);
     }
-    .story-section:last-child { border-bottom:none; padding-bottom:.2rem; }
-    .story-label {
-      display:block; font-size:.6rem; font-weight:700;
-      letter-spacing:.14em; text-transform:uppercase;
-      color:var(--pink); margin-bottom:.3rem;
+    .sp-win-dots { display:flex; gap:.45rem; }
+    .sp-win-dot { width:13px; height:13px; border-radius:50%; border:1.5px solid rgba(0,0,0,.15); }
+    .sp-win-dot-close { background:#ff5f56; cursor:pointer; border:none; padding:0; }
+    .sp-win-file { font-size:.74rem; font-family:var(--f-body); font-weight:700; letter-spacing:.06em; flex:1; color:rgba(255,255,255,.5); }
+    .sp-close {
+      background:none; border:none; cursor:pointer;
+      font-size:.82rem; line-height:1; font-family:var(--f-body); font-weight:700;
+      color:rgba(255,255,255,.55); padding:.2rem .6rem;
+      transition:color .2s;
     }
-    .story-text { font-size:.86rem; line-height:1.75; color:var(--purple); opacity:.68; }
-    .story-section.s-insight {
-      background:var(--bg); border-radius:.65rem;
-      padding:.85rem 1rem; margin-top:.35rem; border-bottom:none;
+    .sp-close:hover { color:#fff; }
+
+    .sp-hero {
+      position:relative; height:260px; overflow:hidden;
+      border-bottom:2.5px solid var(--dark);
     }
-    .story-section.s-insight .story-label { color:var(--purple); opacity:.55; }
-    .story-section.s-insight .story-text { font-weight:700; opacity:.88; }
-    .ccard-story .ccard-q-box { margin-top:.85rem; margin-bottom:.25rem; }
+    .sp-hero img { width:100%; height:100%; object-fit:cover; }
+    .sp-hero-fallback {
+      display:none; width:100%; height:100%;
+      align-items:center; justify-content:center;
+      font-family:var(--f-head); font-size:5rem; color:rgba(255,255,255,.18);
+    }
+    .sp-hero-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(to top, rgba(22,22,58,.9) 0%, rgba(22,22,58,.1) 65%, transparent 100%);
+      display:flex; align-items:flex-end;
+      padding:1.5rem 2rem;
+      gap:1rem;
+    }
+    .sp-brand {
+      font-family:var(--f-head); font-weight:900;
+      font-size:clamp(1.8rem,5vw,3rem);
+      color:var(--white); letter-spacing:-.04em;
+    }
+    .sp-tag {
+      font-size:.7rem; font-weight:700; letter-spacing:.1em;
+      color:var(--yellow);
+      background:rgba(0,0,0,.45);
+      padding:.2rem .75rem; border-radius:2rem;
+      border:1px solid rgba(254,211,50,.55);
+      align-self:center;
+    }
+    .sp-num {
+      font-family:var(--f-head); font-weight:900;
+      font-size:5.5rem; color:rgba(255,255,255,.1);
+      line-height:1; margin-right:auto;
+    }
+
+    .sp-body { padding:2rem 2.5rem 3rem; }
+    .sp-headline {
+      font-family:var(--f-head); font-weight:700;
+      font-size:clamp(1.1rem,2.5vw,1.55rem);
+      line-height:1.3; margin-bottom:2rem;
+      color:var(--dark);
+    }
+
+    .sp-sections { display:flex; flex-direction:column; }
+    .sp-section {
+      padding:1.35rem 0;
+      border-bottom:1px solid var(--border);
+      display:grid; grid-template-columns:100px 1fr; gap:1.75rem; align-items:start;
+    }
+    .sp-section:last-child { border-bottom:none; }
+    .sp-sec-label {
+      font-size:.6rem; font-weight:700; letter-spacing:.14em;
+      text-transform:uppercase; color:var(--pink); padding-top:.3rem;
+    }
+    .sp-sec-text { font-size:.97rem; line-height:1.85; color:var(--purple); opacity:.75; }
+
+    .sp-insight {
+      background:var(--purple); color:var(--white);
+      border:2.5px solid var(--dark); border-radius:1.1rem;
+      padding:1.65rem 2rem; margin:1.75rem 0 1.1rem;
+      box-shadow:5px 5px 0 var(--dark);
+    }
+    .sp-insight-label {
+      font-size:.6rem; font-weight:700; letter-spacing:.14em;
+      text-transform:uppercase; color:var(--teal); margin-bottom:.65rem;
+      display:block;
+    }
+    .sp-insight-text { font-size:1.05rem; font-weight:700; line-height:1.7; }
+
+    .sp-question {
+      background:var(--yellow); color:var(--dark);
+      border:2.5px solid var(--dark); border-radius:1.1rem;
+      padding:1.35rem 1.75rem;
+      box-shadow:5px 5px 0 var(--dark);
+      display:flex; gap:.85rem; align-items:flex-start;
+    }
+    .sp-question svg { flex-shrink:0; margin-top:3px; }
+    .sp-q-text { font-size:.97rem; font-weight:700; line-height:1.6; }
 
     /* Sparkle */
     .sparkle { color:var(--pink); font-size:1rem; }
@@ -641,6 +729,10 @@
       .index-testi-grid { grid-template-columns:1fr; }
       .index-testi-inner { padding:3.5rem 1.25rem; }
       .footer-inner { flex-direction:column; gap:1.25rem; text-align:center; padding:2rem 1.25rem; }
+      .sp-body { padding:1.5rem 1.25rem 2.5rem; }
+      .sp-section { grid-template-columns:1fr; gap:.5rem; }
+      .sp-hero { height:200px; }
+      .sp-num { display:none; }
     }
   </style>
 </head>
@@ -756,7 +848,7 @@
   <div class="campaigns-grid">
 
     <!-- ═══ FEATURED: CHANEL ═══ -->
-    <article class="ccard-hero reveal">
+    <article class="ccard-hero reveal" onclick="openStory('chanel')">
       <div class="win-bar" style="background:#1a1a3a; border-color:#1a1a3a;">
         <div class="win-dots">
           <div class="win-dot" style="background:#ff5f56"></div>
@@ -780,34 +872,10 @@
           </div>
           <h3 class="ccard-headline" style="font-family:var(--f-head); font-weight:900; font-size:clamp(1.1rem,2vw,1.45rem); line-height:1.3;">מדוע מותג היוקרה הקפדני בעולם פרסם ציור קשקוש של ילד ביום האם?</h3>
           <p class="ccard-teaser">כשהשלמות מרחיקה - אנושיות מנצחת.</p>
-          <button class="ccard-read-btn" onclick="toggleStory(this)">
-            <span class="btn-label">לסיפור המלא</span>
-            <svg viewBox="0 0 24 24" width="13" height="13"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="ccard-story"><div>
-            <div class="story-inner">
-              <div class="story-section">
-                <span class="story-label">האתגר</span>
-                <p class="story-text">שאנל רצתה להתחבר לרגש של יום האם. אבל מותג היוקרה הכי מדויק בעולם לא יכול פשוט "להיות אנושי" - זה יראה מזויף.</p>
-              </div>
-              <div class="story-section">
-                <span class="story-label">מה שעשו</span>
-                <p class="story-text">במקום צילום מבריק של בושם יוקרתי, פרסמו ציור קשקוש שצייר ילד לאמו.</p>
-              </div>
-              <div class="story-section">
-                <span class="story-label">למה זה עבד</span>
-                <p class="story-text">שלמות פלסטית יוצרת ריחוק. ציור ילדותי אמיתי - אפילו עם קשקושים - יוצר חיבור עמוק שאף פרסומת "מושלמת" לא יכולה לייצר.</p>
-              </div>
-              <div class="story-section s-insight">
-                <span class="story-label">התובנה</span>
-                <p class="story-text">הדבר ה"לא מושלם" שאת מפחדת לשתף הוא לרוב הדבר שיוצר את הקשר הכי חזק עם הקהל שלך.</p>
-              </div>
-              <div class="ccard-q-box">
-                <svg viewBox="0 0 24 24" width="17" height="17" stroke="var(--dark)" fill="none" stroke-width="2" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01" stroke-linecap="round"/></svg>
-                <p class="ccard-q-text">כמה פעמים דחית השקה כי "העיצוב עדיין לא מושלם"? מה יקרה אם תפרסמי אותה היום?</p>
-              </div>
-            </div>
-          </div></div>
+          <span class="ccard-open-hint">
+            לסיפור המלא
+            <svg viewBox="0 0 24 24" width="12" height="12"><polyline points="6 9 12 15 18 9"/></svg>
+          </span>
         </div>
       </div>
     </article>
@@ -815,7 +883,7 @@
     <!-- ═══ SUB-GRID: VW / PANZANI / IKEA ═══ -->
     <div class="campaigns-subgrid">
 
-      <article class="ccard reveal">
+      <article class="ccard reveal" onclick="openStory('vw')">
         <div class="win-bar" style="background:var(--purple); border-color:var(--purple);">
           <div class="win-dots">
             <div class="win-dot" style="background:#ff5f56"></div>
@@ -838,38 +906,14 @@
           </div>
           <h3 class="ccard-headline">כיצד מכרו רכב גרמני מוזר לאמריקאים שאהבו ענקיות?</h3>
           <p class="ccard-teaser">חיסרון שהפך לנשק.</p>
-          <button class="ccard-read-btn" onclick="toggleStory(this)">
-            <span class="btn-label">לסיפור המלא</span>
-            <svg viewBox="0 0 24 24" width="13" height="13"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="ccard-story"><div>
-            <div class="story-inner">
-              <div class="story-section">
-                <span class="story-label">האתגר</span>
-                <p class="story-text">לשכנע אמריקאים ב-1960 שאהבו מכוניות ענקיות לקנות רכב גרמני קטן ומוזר.</p>
-              </div>
-              <div class="story-section">
-                <span class="story-label">מה שעשו</span>
-                <p class="story-text">הסוכנות DDB לא הסתירה שהביטל קטן. הם פרסמו מודעה עם כותרת גדולה אחת בלבד: "Think Small".</p>
-              </div>
-              <div class="story-section">
-                <span class="story-label">למה זה עבד</span>
-                <p class="story-text">הם הפכו חיסרון ליתרון: קטן = חיסכון בדלק, קל לחנות, שונה מכולם. הקונה הרגיש חכם - לא פשרן.</p>
-              </div>
-              <div class="story-section s-insight">
-                <span class="story-label">התובנה</span>
-                <p class="story-text">מה שנראה לך כחולשה - גודל קטן, ניסיון מועט, תחום צר - יכול להיות בדיוק מה שהלקוחה הנכונה מחפשת.</p>
-              </div>
-              <div class="ccard-q-box">
-                <svg viewBox="0 0 24 24" width="17" height="17" stroke="var(--dark)" fill="none" stroke-width="2" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01" stroke-linecap="round"/></svg>
-                <p class="ccard-q-text">מה ה"קטן" שלך שאת מנסה להסתיר? ואם תבליטי אותו - מה יקרה?</p>
-              </div>
-            </div>
-          </div></div>
+          <span class="ccard-open-hint">
+            לסיפור המלא
+            <svg viewBox="0 0 24 24" width="12" height="12"><polyline points="6 9 12 15 18 9"/></svg>
+          </span>
         </div>
       </article>
 
-      <article class="ccard reveal d1">
+      <article class="ccard reveal d1" onclick="openStory('panzani')">
         <div class="win-bar" style="background:var(--pink); border-color:var(--pink);">
           <div class="win-dots">
             <div class="win-dot" style="background:#ff5f56"></div>
@@ -892,38 +936,14 @@
           </div>
           <h3 class="ccard-headline">כיצד הפכה חברת פסטה מודעת רחוב משעממת לקמפיין מדובר?</h3>
           <p class="ccard-teaser">יצירתיות ללא תקציב.</p>
-          <button class="ccard-read-btn" onclick="toggleStory(this)">
-            <span class="btn-label">לסיפור המלא</span>
-            <svg viewBox="0 0 24 24" width="13" height="13"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="ccard-story"><div>
-            <div class="story-inner">
-              <div class="story-section">
-                <span class="story-label">האתגר</span>
-                <p class="story-text">פרסום על לוחות מודעות ישנים בתחנות רכבת. כולן נראות אותו הדבר - אף אחד לא מסתכל.</p>
-              </div>
-              <div class="story-section">
-                <span class="story-label">מה שעשו</span>
-                <p class="story-text">גזרו את הפוסטר בצורת חבילת ספגטי שמשתפכת מחוץ למסגרת הרגילה.</p>
-              </div>
-              <div class="story-section">
-                <span class="story-label">למה זה עבד</span>
-                <p class="story-text">כשפוסטר "מתנהג" בצורה לא צפויה - העין נמשכת אוטומטית. הם שברו את הציפייה וייצרו שיחה.</p>
-              </div>
-              <div class="story-section s-insight">
-                <span class="story-label">התובנה</span>
-                <p class="story-text">לפני שאת קונה שטח פרסום חדש - שאלי: איך אני יכולה להשתמש במה שיש לי בצורה שאחרות לא חשבו עליה?</p>
-              </div>
-              <div class="ccard-q-box">
-                <svg viewBox="0 0 24 24" width="17" height="17" stroke="var(--dark)" fill="none" stroke-width="2" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01" stroke-linecap="round"/></svg>
-                <p class="ccard-q-text">איזה ערוץ שיווק קיים יכול לקבל אצלך טוויסט אחד שיהפוך אותו לבלתי נשכח?</p>
-              </div>
-            </div>
-          </div></div>
+          <span class="ccard-open-hint">
+            לסיפור המלא
+            <svg viewBox="0 0 24 24" width="12" height="12"><polyline points="6 9 12 15 18 9"/></svg>
+          </span>
         </div>
       </article>
 
-      <article class="ccard reveal d2">
+      <article class="ccard reveal d2" onclick="openStory('ikea')">
         <div class="win-bar" style="background:var(--teal); border-color:var(--teal);">
           <div class="win-dots">
             <div class="win-dot" style="background:#ff5f56"></div>
@@ -946,34 +966,10 @@
           </div>
           <h3 class="ccard-headline">כיצד ארזה איקאה כרית כ"תוסף תזונה" ומכרה את מחלקת השינה מחדש?</h3>
           <p class="ccard-teaser">מה שאת מוכרת הוא לא מה שהן קונות.</p>
-          <button class="ccard-read-btn" onclick="toggleStory(this)">
-            <span class="btn-label">לסיפור המלא</span>
-            <svg viewBox="0 0 24 24" width="13" height="13"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="ccard-story"><div>
-            <div class="story-inner">
-              <div class="story-section">
-                <span class="story-label">האתגר</span>
-                <p class="story-text">להגדיל מכירות של כריות בשוק רווי שבו כולם מוכרים "איכות", "רכות" ו"נוחות".</p>
-              </div>
-              <div class="story-section">
-                <span class="story-label">מה שעשו</span>
-                <p class="story-text">ארזו כרית בקופסה שנראית כמו תוסף תזונה, עם הסלוגן: "מחר מתחיל הלילה".</p>
-              </div>
-              <div class="story-section">
-                <span class="story-label">למה זה עבד</span>
-                <p class="story-text">כי אנשים לא קונים כרית - הם קונים שינה טובה, יום טוב, ביצועים טובים. איקאה מכרה את התוצאה, לא המוצר.</p>
-              </div>
-              <div class="story-section s-insight">
-                <span class="story-label">התובנה</span>
-                <p class="story-text">הלקוחה שלך לא קונה שעות ייעוץ - היא קונה שקט נפשי. לא לוגו - אלא מותג שמוכר לפניה. שני ההצגה, לא השירות.</p>
-              </div>
-              <div class="ccard-q-box">
-                <svg viewBox="0 0 24 24" width="17" height="17" stroke="var(--dark)" fill="none" stroke-width="2" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01" stroke-linecap="round"/></svg>
-                <p class="ccard-q-text">את מוכרת מה? ומה הלקוחה שלך באמת קונה? האם שתי התשובות תואמות?</p>
-              </div>
-            </div>
-          </div></div>
+          <span class="ccard-open-hint">
+            לסיפור המלא
+            <svg viewBox="0 0 24 24" width="12" height="12"><polyline points="6 9 12 15 18 9"/></svg>
+          </span>
         </div>
       </article>
 
@@ -1121,6 +1117,22 @@
 </div>
 </footer>
 
+<!-- STORY MODAL -->
+<div class="story-modal" id="storyModal" onclick="handleModalBg(event)">
+  <div class="story-panel" id="storyPanel">
+    <div class="sp-win" id="spWinBar">
+      <div class="sp-win-dots">
+        <button class="sp-win-dot sp-win-dot-close" onclick="closeStory()" title="סגרי"></button>
+        <div class="sp-win-dot" style="background:#ffbd2e"></div>
+        <div class="sp-win-dot" style="background:#27c93f"></div>
+      </div>
+      <span class="sp-win-file" id="spWinFile"></span>
+      <button class="sp-close" onclick="closeStory()">סגרי ✕</button>
+    </div>
+    <div id="spContent"></div>
+  </div>
+</div>
+
 <script>
 /* ── SCROLL REVEAL ── */
 const revObs = new IntersectionObserver(entries => {
@@ -1141,19 +1153,110 @@ document.querySelectorAll('.nav-logo-btn, .cta-form button, .hero-card').forEach
 
 
 
-/* ── STORY EXPAND ── */
-function toggleStory(btn) {
-  const card = btn.closest('.ccard, .ccard-hero');
-  const opening = !card.classList.contains('open');
-  document.querySelectorAll('.ccard.open, .ccard-hero.open').forEach(c => {
-    c.classList.remove('open');
-    c.querySelector('.btn-label').textContent = 'לסיפור המלא';
-  });
-  if (opening) {
-    card.classList.add('open');
-    btn.querySelector('.btn-label').textContent = 'סגרי';
-  }
+/* ── STORY MODAL ── */
+const STORIES = {
+  chanel: {
+    winFile:'CHANEL.campaign', winBg:'#1a1a3a',
+    brand:'Chanel', tag:'יום האם', num:'01',
+    img:'images/chanel.jpg', fallbackBg:'#1a1a3a', fallbackTxt:'CH',
+    headline:'מדוע מותג היוקרה הקפדני בעולם פרסם ציור קשקוש של ילד ביום האם?',
+    sections:[
+      {label:'האתגר', text:'שאנל - מותג שנבנה כולו על מדויקות ושלמות חזותית - עמד בפני דילמה: כיצד מתחברים לרגש של יום האם מבלי להישמע מנוכר? ב-2020, בעיצומו של משבר COVID, הצרכנים היו עייפים מפרסומות "מלוטשות". הם חיפשו חיבור אמיתי. שאנל ידעה שאם תפרסם פרסומת מדויקת ויפה כרגיל - היא תיראה קרה ומנותקת בדיוק כשהכי פחות מתאים.'},
+      {label:'מה שעשו', text:'הם פנו לעובדות ולנציגי שאנל ברחבי העולם וביקשו מהם להביא ציורים שציירו ילדיהם לאמותיהן. ציורי קשקוש בעפרונות צבעוניים, עם דמויות לא פרופורציונליות ורגשות גדולים. לוגו שאנל No.5 בפינה הקטנה. הילד - 95% מהמסך. הפרסומת הוצגה בעיתונות ובמיצגי חלונות הראווה.'},
+      {label:'למה זה עבד', text:'ציור ילד לאמו הוא הדבר הכי אמיתי שיש. לא ניתן לייצר אותו ב-AI או בסטודיו. הוא מדבר ישירות אל הזיכרון הרגשי. כשאמא רואה ציור כזה, היא לא רואה פרסומת - היא רואה את הרגע שבו ילדה שלה ציירה לה. שאנל הבינה שהכוח הגדול ביותר שלה אינו השלמות - אלא הרגש שהיא מסוגלת לעורר.'},
+    ],
+    insight:'עבדת שנים כדי שהכל יראה "מקצועי". אבל הלקוחות שלך לא קונות מושלמות - הן קונות אמינות. הציור הקשקושי שנראה לך "לא מספיק טוב" הוא לפעמים בדיוק מה שיגרום למישהי להגיד: "זאת אני. זאת מי שאני צריכה."',
+    question:'כמה פעמים דחית השקה או פרסום כי "העיצוב עדיין לא מושלם"? מה יקרה אם תפרסמי אותה השבוע - עם הקשקוש ועם הכל?',
+  },
+  vw: {
+    winFile:'VW_1960.ad', winBg:'#3b3b97',
+    brand:'Volkswagen', tag:'Think Small', num:'02',
+    img:'images/ww.jpg', fallbackBg:'#1a3a6b', fallbackTxt:'VW',
+    headline:'כיצד מכרו רכב גרמני מוזר לאמריקאים שאהבו ענקיות?',
+    sections:[
+      {label:'האתגר', text:'1959. אמריקה שלאחר המלחמה שגשגת בגאווה לאומית. מכוניות אמריקאיות - ענקיות, מבריקות, עם זנב-דגים ו-V8. הביטל הגרמני - עגול, קטן, מאופק - מגיע מהמדינה שהיתה האויב עד לפני 14 שנה. הסוכנות DDB קיבלה אחד הברידים הקשים בהיסטוריה: "מכרי את הרכב הזה לאמריקאים."'},
+      {label:'מה שעשו', text:'במקום להתנצל על הגודל או לנסות להיראות "אמריקאי", הם חגגו אותו. מודעה עם תמונה קטנה של הביטל בפינה, שטח לבן גדול, וכותרת אחת בלבד: "Think Small". קופי חד: "הרכב שלנו לא עצר להיות עצמו ב-100,000 קילומטר. שלכם כן?" הם הניחו שהקורא חכם ויכול לחבר את הנקודות בעצמו.'},
+      {label:'למה זה עבד', text:'DDB המציאו "פרסום כנה" - סגנון שמניח כבוד ביכולת הקורא לחשוב. הם הפכו כל "חסרון" לפילוסופיה: קטן = חסכוני; גרמני = מדויק; לא משתנה = אמין. הצרכן הרגיש חכם כשקנה ביטל. ה"Think Small" נחשב עד היום לפרסומת הטובה ביותר שנוצרה אי פעם.'},
+    ],
+    insight:'מה שנראה לך כחולשה - גודל קטן, ניסיון מועט, תחום צר, קהל יעד נישה - הוא לעיתים קרובות בדיוק מה שהלקוחה הנכונה מחפשת ולא מוצאת. כשאת מנסה להסתיר את זה, את מאבדת את הלקוחות שהיו הכי מחוברות אלייך.',
+    question:'מה ה"קטן" או ה"מוזר" שלך שאת מנסה להסתיר? מה יקרה אם תבני את כל המיתוג שלך בדיוק סביב אותו דבר?',
+  },
+  panzani: {
+    winFile:'PANZANI.food', winBg:'#e8508a',
+    brand:'Panzani', tag:'Guerrilla', num:'03',
+    img:'images/paste.jpg', fallbackBg:'#c8102e', fallbackTxt:'PS',
+    headline:'כיצד הפכה חברת פסטה מודעת רחוב משעממת לקמפיין מדובר?',
+    sections:[
+      {label:'האתגר', text:'תחנות רכבת בפריז, 2008. מאות לוחות פרסומת - כולם מלבנים, כולם בתוך מסגרת, כולם נראים אותו הדבר. הצרכן הפריזאי פיתח עיוורון פרסומי מוחלט. פנזאני רצתה להתבלט אבל התקציב היה מוגבל מאוד. אין כסף לסרטון, אין כסף לפריים-טיים. יש לוח. ותו לא.'},
+      {label:'מה שעשו', text:'צוות קטן גזר ידנית כל פוסטר בצורה לא מלבנית - בצורת חבילת ספגטי. הספגטי "נשפך" מחוץ לגבולות הלוח, עובר מעל המסגרת ויוצר תחושה שהמוצר פורץ מחוץ למרחב הפרסום. גזירה פיזית, פשוטה, זולה - אבל מפרת את הציפייה הבסיסית של מה שאמור להיות שם.'},
+      {label:'למה זה עבד', text:'המוח האנושי מחפש כל הזמן חריגות. כשמשהו "לא מתנהג" כמו שצריך - כשספגטי חורג מחוץ למלבן - העין נמשכת אוטומטית. אנשים עצרו, הסתכלו, צילמו. שלחו לחברות. הפרסומת הפכה לתוכן שאנשים מפיצים מרצונם - בלי שקל נוסף.'},
+    ],
+    insight:'לפני שאת קונה ערוץ שיווקי חדש, כלי חדש, שטח פרסום חדש - שאלי: איך אני יכולה להשתמש במה שכבר יש לי בצורה שאחרות לא חשבו עליה? פריצה לא תמיד עולה כסף - לפעמים היא עולה העזה לשבור את המלבן.',
+    question:'איזה ערוץ שיווקי קיים אצלך כבר "ממסגרת" את עצמך בתוכו? מה יקרה אם תגזרי אותו בצורה אחרת לגמרי?',
+  },
+  ikea: {
+    winFile:'IKEA.retail', winBg:'#4ab8bc',
+    brand:'IKEA', tag:'Transformation', num:'04',
+    img:'images/ikea.jpg', fallbackBg:'#0058a3', fallbackTxt:'IK',
+    headline:'כיצד ארזה איקאה כרית כ"תוסף תזונה" ומכרה את מחלקת השינה מחדש?',
+    sections:[
+      {label:'האתגר', text:'שוק כריות ומצעים - שוק שנראה בלתי אפשרי לבדל בו. כולם מדברים על "100% כותנה", "X מידות", "משפר יציבה", "אורטופדי". הצרכן לא זוכר שום הבדל. איקאה ידעה שהיא לא יכולה לנצח במירוץ הפיצ\'רים. היא צריכה לשנות לגמרי את השאלה שהצרכן שואל בקנייה.'},
+      {label:'מה שעשו', text:'ב-2016 ארזו כרית בקופסת פלסטיק שנראית בדיוק כמו תוסף תזונה. יש בה "מינון" (כמה שעות שינה), "הוראות שימוש", אחוזי "שיפור ביצועים". הסלוגן: "מחר מתחיל הלילה." הם ניצלו את גל ה-Wellness שפרח באותה תקופה - הפיכת שינה מצורך בסיסי להשקעה בבריאות.'},
+      {label:'למה זה עבד', text:'אנשים לא קונות כרית - הן קונות שינה טובה, יום אנרגטי, ביצועים טובים. כשאיקאה ארזה את הכרית כתוסף תזונה, היא שינתה את הקטגוריה בראש הצרכן: זה לא "ריהוט", זה "בריאות". ואנשים מוכנים לשלם הרבה יותר על בריאות מאשר על ריהוט. ה-packaging שינה את הערך הנתפס - מבלי לשנות את המוצר.'},
+    ],
+    insight:'הלקוחה שלך לא קונה שעות ייעוץ - היא קונה שקט נפשי. לא לוגו - היא קונה מותג שמוכר לפניה. לא עיצוב גרפי - היא קונה ביטחון. כשתשני את מה שאת "מוכרת" בלי לשנות מה שאת "עושה" - תגלי שיכולה לגבות פי שניים.',
+    question:'את מוכרת מה בפועל? ומה הלקוחה שלך באמת מקבלת ממך? כשתגדירי את זה מחדש - האם המחיר שלך עדיין הגיוני?',
+  },
+};
+
+function openStory(id) {
+  const s = STORIES[id];
+  if (!s) return;
+  const winBar = document.getElementById('spWinBar');
+  winBar.style.background = s.winBg;
+  winBar.style.borderColor = s.winBg;
+  document.getElementById('spWinFile').textContent = s.winFile;
+  document.getElementById('spContent').innerHTML = `
+    <div class="sp-hero">
+      <img src="${s.img}" alt="${s.brand}"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="sp-hero-fallback" style="background:${s.fallbackBg}">${s.fallbackTxt}</div>
+      <div class="sp-hero-overlay">
+        <span class="sp-brand">${s.brand}</span>
+        <span class="sp-tag">${s.tag}</span>
+        <span class="sp-num">${s.num}</span>
+      </div>
+    </div>
+    <div class="sp-body">
+      <h2 class="sp-headline">${s.headline}</h2>
+      <div class="sp-sections">
+        ${s.sections.map(sec=>`
+        <div class="sp-section">
+          <span class="sp-sec-label">${sec.label}</span>
+          <p class="sp-sec-text">${sec.text}</p>
+        </div>`).join('')}
+      </div>
+      <div class="sp-insight">
+        <span class="sp-insight-label">התובנה</span>
+        <p class="sp-insight-text">${s.insight}</p>
+      </div>
+      <div class="sp-question">
+        <svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--dark)" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01" stroke-linecap="round"/></svg>
+        <p class="sp-q-text">${s.question}</p>
+      </div>
+    </div>`;
+  document.getElementById('storyPanel').scrollTop = 0;
+  document.getElementById('storyModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
 }
+function closeStory() {
+  document.getElementById('storyModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function handleModalBg(e) {
+  if (e.target === document.getElementById('storyModal')) closeStory();
+}
+document.addEventListener('keydown', e => { if (e.key==='Escape') closeStory(); });
 
 /* ── FORM ── */
 function handleSubmit(e) {
