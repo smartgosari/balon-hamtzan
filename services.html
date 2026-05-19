@@ -314,6 +314,129 @@
     /* ── KEYFRAME ── */
     @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
+    /* ── PRICING TOGGLE ── */
+    .pricing-section {
+      padding:5rem 0;
+      border-top:2px solid var(--border);
+    }
+    .pricing-wrap {
+      max-width:1200px; margin:0 auto;
+      padding:0 2.5rem;
+    }
+    .pricing-header { margin-bottom:3rem; }
+    .pricing-big-title {
+      font-family:var(--f-head); font-weight:900;
+      font-size:clamp(3rem,7vw,6rem);
+      line-height:.95; letter-spacing:-.04em;
+    }
+
+    .plan-toggle {
+      display:flex; flex-direction:column;
+      align-items:center; gap:.85rem;
+      margin-bottom:3rem;
+    }
+    .plan-toggle-track {
+      position:relative;
+      display:inline-flex;
+      background:var(--white);
+      border:2px solid var(--purple);
+      border-radius:3rem;
+      padding:.35rem;
+      box-shadow:4px 4px 0 var(--purple);
+    }
+    .plan-toggle-pill {
+      position:absolute;
+      top:.35rem; bottom:.35rem; left:.35rem;
+      background:var(--purple);
+      border-radius:2rem;
+      transition:left .3s cubic-bezier(.4,0,.2,1), width .3s cubic-bezier(.4,0,.2,1);
+      pointer-events:none;
+      z-index:0;
+    }
+    .plan-btn {
+      position:relative; z-index:1;
+      background:none; border:none;
+      font-family:var(--f-head); font-weight:700;
+      font-size:1rem; letter-spacing:.04em;
+      color:var(--purple);
+      padding:.6rem 2rem;
+      border-radius:2rem;
+      cursor:pointer;
+      transition:color .25s;
+      white-space:nowrap;
+    }
+    .plan-btn.active { color:var(--white); }
+    .plan-toggle-hint {
+      font-size:.73rem; color:var(--purple); opacity:.42;
+      text-align:center; line-height:1.7;
+    }
+
+    .plan-cards {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:1.25rem;
+    }
+    .pcard {
+      background:var(--white);
+      border:2px solid var(--purple);
+      border-radius:1rem;
+      overflow:hidden;
+      box-shadow:5px 5px 0 var(--purple);
+      transition:transform .15s, box-shadow .15s;
+      display:flex; flex-direction:column;
+      opacity:0; transform:translateY(18px);
+      animation:pcardIn .38s ease forwards;
+    }
+    .pcard:nth-child(2) { animation-delay:.07s; }
+    .pcard:nth-child(3) { animation-delay:.14s; }
+    @keyframes pcardIn { to { opacity:1; transform:translateY(0); } }
+    .pcard:hover { transform:translate(-3px,-3px); box-shadow:8px 8px 0 var(--purple); }
+
+    .pcard-stripe { height:5px; }
+    .pcard-dept {
+      font-size:.68rem; font-weight:700;
+      letter-spacing:.12em; text-transform:uppercase;
+      opacity:.4; padding:1.4rem 1.5rem .4rem;
+    }
+    .pcard-body {
+      padding:0 1.5rem 1.5rem;
+      flex:1; display:flex; flex-direction:column; gap:.7rem;
+    }
+    .pcard-title {
+      font-family:var(--f-head); font-weight:700;
+      font-size:1.25rem; line-height:1.2; letter-spacing:-.02em;
+    }
+    .pcard-desc { font-size:.86rem; line-height:1.65; opacity:.6; flex:1; }
+    .pcard-price {
+      padding-top:.85rem;
+      border-top:1px solid var(--border);
+      margin-top:auto;
+    }
+    .pcard-price-label {
+      font-size:.65rem; font-weight:700;
+      letter-spacing:.1em; text-transform:uppercase;
+      opacity:.4; display:block; margin-bottom:.3rem;
+    }
+    .pcard-price-row { display:flex; align-items:baseline; gap:.35rem; flex-wrap:wrap; }
+    .pcard-price-value {
+      font-family:var(--f-head); font-weight:900;
+      font-size:1.6rem; letter-spacing:-.03em;
+    }
+    .pcard-price-suffix { font-size:.78rem; opacity:.5; }
+    .pcard-cta {
+      display:inline-flex; align-items:center; gap:.55rem;
+      background:var(--dark); color:var(--white);
+      font-family:var(--f-body); font-weight:700; font-size:.84rem;
+      padding:.65rem 1.2rem; border-radius:2rem;
+      text-decoration:none; letter-spacing:.02em;
+      border:2px solid var(--dark);
+      box-shadow:3px 3px 0 var(--purple);
+      transition:transform .15s, box-shadow .15s;
+      align-self:flex-start; margin-top:.35rem;
+    }
+    .pcard-cta:hover { transform:translate(-2px,-2px); box-shadow:5px 5px 0 var(--purple); }
+    .pcard-cta svg { width:11px; height:11px; stroke:currentColor; fill:none; stroke-width:2.2; flex-shrink:0; }
+
     /* ── EDIT MODE ── */
     #edit-ui {
       position:fixed; bottom:1.5rem; left:1.5rem; z-index:9999;
@@ -358,6 +481,10 @@
 
     /* ── MOBILE ── */
     @media(max-width:768px) {
+      .pricing-section { padding:3rem 0; }
+      .pricing-wrap { padding:0 1.25rem; }
+      .plan-cards { grid-template-columns:1fr; }
+      .plan-btn { padding:.55rem 1.1rem; font-size:.88rem; }
       .nav-inner { padding:.85rem 1.25rem; }
       .nav-links  { display:none; }
       .page-hero  { padding:7rem 1.25rem 3.5rem; }
@@ -415,6 +542,31 @@
     <span class="mini-ticker-item">קריאייטיב ✦</span>
   </div>
 </div>
+
+
+<!-- PRICING TOGGLE -->
+<section id="pricing" class="pricing-section">
+  <div class="pricing-wrap">
+    <div class="pricing-header">
+      <p class="section-label" style="margin-bottom:.75rem">כמה עולה?</p>
+      <h2 class="pricing-big-title">בחרי את<br>ההיקף שלך.</h2>
+    </div>
+
+    <div class="plan-toggle">
+      <div class="plan-toggle-track" id="plan-track">
+        <div class="plan-toggle-pill" id="plan-pill"></div>
+        <button class="plan-btn active" data-plan="small">Small</button>
+        <button class="plan-btn" data-plan="big">Big</button>
+        <button class="plan-btn" data-plan="retainer">Retainer</button>
+      </div>
+      <p class="plan-toggle-hint">
+        Small = מפגש / פרויקט ראשון &nbsp;·&nbsp; Big = פרויקט מלא &nbsp;·&nbsp; Retainer = ליווי חודשי קבוע
+      </p>
+    </div>
+
+    <div class="plan-cards" id="plan-cards"></div>
+  </div>
+</section>
 
 
 <!-- ═══════════ 🧠 SMART ═══════════ -->
@@ -714,6 +866,141 @@
 </div>
 
 <script>
+/* ── PRICING TOGGLE ── */
+const PLANS = {
+  small: [
+    {
+      dept: '🧠 SMART', stripe: 'smart',
+      title: 'פגישת יעוץ',
+      desc: 'פגישה ממוקדת אחת לפתוח את הפלונטר ולצאת עם החלטות ברורות.',
+      price: '1,200', suffix: 'ש"ח',
+      cta: 'אני צריכה כיוון מדויק'
+    },
+    {
+      dept: '🚀 DRIVE', stripe: 'drive',
+      title: 'פגישת פיצוח ורעיונאות',
+      desc: 'סיעור מוחות + מסמך רעיונות ואסטרטגיה מותאמים אישית. היישום עלייך.',
+      price: '1,200', suffix: 'ש"ח',
+      cta: 'תני לי בוסט של השראה'
+    },
+    {
+      dept: '🟢 GO', stripe: 'go',
+      title: 'מודעה / עיצוב',
+      desc: 'מודעה בודדת חדה כתער שעוצרת את הגלילה בפיד ועושה רושם.',
+      price: '2,500', suffix: 'ש"ח',
+      cta: 'אני רוצה עיצוב מנצח'
+    }
+  ],
+  big: [
+    {
+      dept: '🧠 SMART', stripe: 'smart',
+      title: 'תהליך ליווי — 8 מפגשים',
+      desc: '8 מפגשי עומק להפיכת החזון לפרקטיקה: מודל עסקי, מיצוב ואסטרטגיה.',
+      price: '12,000', suffix: 'ש"ח',
+      cta: 'בואי נתכנן את מסלול הנסיעה'
+    },
+    {
+      dept: '🚀 DRIVE', stripe: 'drive',
+      title: 'כתיבת סדרה — 4 מיילים',
+      desc: 'סדרה ממוקדת של מיילים עם מטרה אחת: למכור. פרויקט נקודתי עם סוף ברור.',
+      price: '2,800', suffix: 'ש"ח',
+      cta: 'אני צריכה מיילים שמוכרים'
+    },
+    {
+      dept: '🟢 GO', stripe: 'go',
+      title: 'מיתוג קומפלט',
+      desc: 'שפה ויזואלית מלאה: לוגו, צבעים, טיפוגרפיה ומדריך מותג שמשדר בידול.',
+      price: '6,800', suffix: 'ש"ח',
+      cta: 'תארזי לי את העסק מחדש'
+    }
+  ],
+  retainer: [
+    {
+      dept: '🧠 SMART', stripe: 'smart',
+      title: 'חודשי — 2 פגישות + מענה שוטף',
+      desc: '2 פגישות בחודש ומענה לכל שאלה שעולה בדרך. שקט נפשי אמיתי.',
+      price: '1,800', suffix: 'ש"ח / חודש',
+      cta: 'אני רוצה שקט חודשי'
+    },
+    {
+      dept: '🚀 DRIVE', stripe: 'drive',
+      title: 'כתיבת 3–4 מיילים בחודש',
+      desc: 'שירות חודשי קבוע של כתיבת מיילים מבריקים לרשימה שלך. אני כותבת, את מוכרת.',
+      price: '1,800', suffix: 'ש"ח / חודש',
+      cta: 'קחי ממני את עול הכתיבה'
+    },
+    {
+      dept: '🟢 GO', stripe: 'go',
+      title: 'מודעה / עיצוב לחודש',
+      desc: 'ריטיינר עיצוב חודשי — נראות יציבה ומקצועית מבלי לשבור את הראש.',
+      price: '1,200', suffix: 'ש"ח / חודש',
+      cta: 'תעשי לי יפה בפיד כל חודש'
+    }
+  ]
+};
+
+function renderPlanCards(plan) {
+  const container = document.getElementById('plan-cards');
+  container.innerHTML = '';
+  PLANS[plan].forEach(item => {
+    container.insertAdjacentHTML('beforeend', `
+      <div class="pcard">
+        <div class="pcard-stripe ${item.stripe}"></div>
+        <div class="pcard-dept">${item.dept}</div>
+        <div class="pcard-body">
+          <h3 class="pcard-title">${item.title}</h3>
+          <p class="pcard-desc">${item.desc}</p>
+          <div class="pcard-price">
+            <span class="pcard-price-label">השקעה</span>
+            <div class="pcard-price-row">
+              <span class="pcard-price-value">${item.price}</span>
+              <span class="pcard-price-suffix">${item.suffix}</span>
+            </div>
+          </div>
+          <a href="#contact" class="pcard-cta">
+            ${item.cta}
+            <svg viewBox="0 0 14 14"><path d="M2 12L12 2M12 2H5M12 2v7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    `);
+  });
+}
+
+function updatePill(activeBtn) {
+  const track = document.getElementById('plan-track');
+  const pill  = document.getElementById('plan-pill');
+  const tr = track.getBoundingClientRect();
+  const br = activeBtn.getBoundingClientRect();
+  pill.style.left  = (br.left - tr.left) + 'px';
+  pill.style.width = br.width + 'px';
+}
+
+document.querySelectorAll('.plan-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.plan-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderPlanCards(btn.dataset.plan);
+    updatePill(btn);
+  });
+});
+
+renderPlanCards('small');
+
+function initPill() {
+  const first = document.querySelector('.plan-btn.active');
+  if (first) updatePill(first);
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initPill);
+} else {
+  requestAnimationFrame(initPill);
+}
+window.addEventListener('resize', () => {
+  const active = document.querySelector('.plan-btn.active');
+  if (active) updatePill(active);
+});
+
 /* ── REVEAL ── */
 const revObs = new IntersectionObserver(entries => {
   entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis'); });
