@@ -436,6 +436,30 @@
     }
     .pcard-cta:hover { transform:translate(-2px,-2px); box-shadow:5px 5px 0 var(--purple); }
     .pcard-cta svg { width:11px; height:11px; stroke:currentColor; fill:none; stroke-width:2.2; flex-shrink:0; }
+    .pcard-tagline {
+      font-size:.82rem; font-weight:700;
+      color:var(--pink); letter-spacing:.02em;
+      margin-top:-.2rem;
+    }
+    .pcard-includes {
+      list-style:none;
+      display:flex; flex-direction:column; gap:.45rem;
+      padding:.85rem 0;
+      border-top:1px solid var(--border);
+      border-bottom:1px solid var(--border);
+      margin:.2rem 0;
+    }
+    .pcard-include-item {
+      display:flex; align-items:flex-start; gap:.5rem;
+      font-size:.83rem; line-height:1.4; color:var(--purple);
+    }
+    .pcard-check {
+      width:16px; height:16px; border-radius:50%;
+      background:var(--purple);
+      display:flex; align-items:center; justify-content:center;
+      flex-shrink:0; margin-top:1px;
+    }
+    .pcard-check svg { width:8px; height:8px; stroke:var(--white); fill:none; stroke-width:2.5; }
 
     /* ── EDIT MODE ── */
     #edit-ui {
@@ -569,254 +593,6 @@
 </section>
 
 
-<!-- ═══════════ 🧠 SMART ═══════════ -->
-<div class="dept-intro">
-  <div class="dept-intro-inner">
-    <div class="dept-tag smart reveal">🧠 &nbsp;SMART</div>
-    <div class="dept-header">
-      <h2 class="dept-big-title reveal d1">המוח<br>והאסטרטגיה.</h2>
-      <p class="dept-desc reveal d2">לפני שלוחצים על הגז, צריך מפה. המחלקה הזו מיועדת למי שרוצה לעשות סדר בבלגן ולבנות תשתית יציבה, רווחית וחכמה.</p>
-    </div>
-  </div>
-</div>
-<div class="services-grid">
-  <div class="grid-2">
-
-    <div class="scard reveal">
-      <div class="scard-stripe smart"></div>
-      <div class="scard-body">
-        <div class="scard-label">ליווי אסטרטגי מלא</div>
-        <h3 class="scard-title">GPS עסקי</h3>
-        <p class="scard-tagline">הדרך שלך למותג יציב</p>
-        <p class="scard-desc">8 מפגשי עומק שבהם אנחנו הופכות את החזון שלך לפרקטיקה. בלי תיאוריות — רק עבודה ממוקדת על המודל העסקי שלך, צעד אחר צעד.</p>
-        <div class="scard-price">
-          <span class="scard-price-label">השקעה</span>
-          <span class="scard-price-value">8,000 ש"ח</span>
-        </div>
-        <a href="#contact" class="scard-cta">
-          בואי נתכנן את מסלול הנסיעה
-          <svg viewBox="0 0 14 14"><path d="M2 12L12 2M12 2H5M12 2v7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div>
-    </div>
-
-    <div class="scard reveal d1">
-      <div class="scard-stripe smart"></div>
-      <div class="scard-body">
-        <div class="scard-label">פגישת ייעוץ ופיצוח</div>
-        <h3 class="scard-title">עצירת התרעננות</h3>
-        <p class="scard-tagline">פגישה אחת שמחזירה שליטה</p>
-        <p class="scard-desc">פגישה ממוקדת אחת כדי לפתוח את הפלונטר. נשב יחד, ננתח את האתגרים ונצא עם החלטות ברורות שיחזירו לך את השליטה לידיים.</p>
-        <div class="scard-price">
-          <span class="scard-price-label">השקעה</span>
-          <span class="scard-price-value">1,200 ש"ח</span>
-        </div>
-        <a href="#contact" class="scard-cta">
-          אני צריכה כיוון מדויק
-          <svg viewBox="0 0 14 14"><path d="M2 12L12 2M12 2H5M12 2v7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-
-<!-- ═══════════ 🟢 GO ═══════════ -->
-<div class="dept-intro teal-bg">
-  <div class="dept-intro-inner">
-    <div class="dept-tag go reveal">🟢 &nbsp;GO</div>
-    <div class="dept-header">
-      <h2 class="dept-big-title reveal d1">סטודיו<br>לארט<br>ועיצוב.</h2>
-      <p class="dept-desc reveal d2">האור הירוק שלך לצאת לעולם. אסטרטגיה טובה חייבת אריזה שקשה להתעלם ממנה. כאן אנחנו מייצרות את הנראות שנותנת לעסק שלך חמצן ויזואלי.</p>
-    </div>
-  </div>
-</div>
-<div class="services-grid">
-  <div class="grid-3">
-
-    <div class="scard reveal">
-      <div class="scard-stripe go"></div>
-      <div class="scard-body">
-        <div class="scard-label">מיתוג קומפלט</div>
-        <h3 class="scard-title">החבילה השלמה</h3>
-        <p class="scard-tagline">לברוא את המותג שלך מחדש</p>
-        <p class="scard-desc">שפה ויזואלית מלאה שמשדרת יוקרה, בידול, וגורמת ללקוחות שלך להבין מיד שאת בליגה אחרת.</p>
-        <div class="scard-price">
-          <span class="scard-price-label">השקעה</span>
-          <span class="scard-price-value">8,000 ש"ח</span>
-        </div>
-        <a href="#contact" class="scard-cta">
-          תארזי לי את העסק מחדש
-          <svg viewBox="0 0 14 14"><path d="M2 12L12 2M12 2H5M12 2v7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div>
-    </div>
-
-    <div class="scard reveal d1">
-      <div class="scard-stripe go"></div>
-      <div class="scard-body">
-        <div class="scard-label">סדרת 3 מודעות</div>
-        <h3 class="scard-title">קמפיין פרימיום</h3>
-        <p class="scard-tagline">מעטפת ויזואלית מבריקה</p>
-        <p class="scard-desc">3 מודעות קריאייטיב מעוצבות שיעצרו את הגלילה בפיד ויעשו את ה"שיבוש" החיובי שאת צריכה.</p>
-        <div class="scard-price">
-          <span class="scard-price-label">השקעה</span>
-          <span class="scard-price-value">8,000 ש"ח</span>
-        </div>
-        <a href="#contact" class="scard-cta">
-          אני רוצה בולטות מקסימלית
-          <svg viewBox="0 0 14 14"><path d="M2 12L12 2M12 2H5M12 2v7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div>
-    </div>
-
-    <div class="scard reveal d2">
-      <div class="scard-stripe go"></div>
-      <div class="scard-body">
-        <div class="scard-label">עיצוב מודעות וריטיינר</div>
-        <h3 class="scard-title">תדלוק שוטף</h3>
-        <p class="scard-tagline">נראות יומיומית מנצחת</p>
-        <p class="scard-desc">עיצוב מודעה בודדת חדה כתער, או ריטיינר עיצוב חודשי לשקט הנפשי שלך — מבלי לשבור את הראש.</p>
-        <div class="scard-price">
-          <span class="scard-price-label">השקעה</span>
-          <span class="scard-price-value">1,200 ש"ח</span>
-          <span class="scard-price-unit">למודעה</span>
-        </div>
-        <a href="#contact" class="scard-cta">
-          תעשי לי יפה בפיד
-          <svg viewBox="0 0 14 14"><path d="M2 12L12 2M12 2H5M12 2v7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-
-<!-- ═══════════ 🚀 DRIVE ═══════════ -->
-<div class="dept-intro pink-bg">
-  <div class="dept-intro-inner">
-    <div class="dept-tag drive reveal">🚀 &nbsp;DRIVE</div>
-    <div class="dept-header">
-      <h2 class="dept-big-title reveal d1">קריאייטיב,<br>קופי<br>ומיילים.</h2>
-      <p class="dept-desc reveal d2">המנוע, הדלק, הדרייב. העיצוב מושך אותם פנימה, אבל המילים סוגרות את העסקה. כאן אנחנו כותבות מסרים שמעירים את הלקוחות שלך ודוחפים לפעולה.</p>
-    </div>
-  </div>
-</div>
-<div class="services-grid">
-
-  <div class="grid-2 grid-gap">
-
-    <div class="scard reveal">
-      <div class="scard-stripe drive"></div>
-      <div class="scard-body">
-        <div class="scard-label">פגישת קריאייטיב + מסמך רעיונות</div>
-        <h3 class="scard-title">ערכת עזרה ראשונה</h3>
-        <p class="scard-tagline">מוצר חדירה מהיר</p>
-        <p class="scard-desc">חצי שעה של סיעור מוחות יחד איתי, שבסיומה את מקבלת מסמך עם רעיונות ואסטרטגיה מותאמים אישית. היישום והכתיבה עלייך.</p>
-        <div class="scard-price">
-          <span class="scard-price-label">השקעה</span>
-          <span class="scard-price-value">600 ש"ח</span>
-        </div>
-        <a href="#contact" class="scard-cta">
-          תני לי בוסט של השראה
-          <svg viewBox="0 0 14 14"><path d="M2 12L12 2M12 2H5M12 2v7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div>
-    </div>
-
-    <div class="scard reveal d1">
-      <div class="scard-stripe drive"></div>
-      <div class="scard-body">
-        <div class="scard-label">תוכנית קריאייטיב ארוכת טווח</div>
-        <h3 class="scard-title">מפה לחצי שנה קדימה</h3>
-        <p class="scard-tagline">מוצר פרימיום</p>
-        <p class="scard-desc">בניית קונספט ואסטרטגיה קריאייטיבית לחצי שנה, כולל כתיבת מסרי הבסיס שמהם תוכלי להמשיך לעבוד בעצמה.</p>
-        <div class="scard-price">
-          <span class="scard-price-label">השקעה</span>
-          <span class="scard-price-value">4,250 ש"ח</span>
-        </div>
-        <a href="#contact" class="scard-cta">
-          אני רוצה שקט לחצי שנה
-          <svg viewBox="0 0 14 14"><path d="M2 12L12 2M12 2H5M12 2v7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="grid-3">
-
-    <div class="scard reveal">
-      <div class="scard-stripe drive"></div>
-      <div class="scard-body">
-        <div class="scard-label">סדרות מסרים · השקות וקמפיינים</div>
-        <h3 class="scard-title">מכונת המכירות</h3>
-        <p class="scard-tagline">מייל אחד לא מוכר. סדרה כן</p>
-        <p class="scard-desc">סדרה ממוקדת של מיילים עם מטרה אחת — למכור. פרויקט נקודתי עם התחלה וסוף ברורים.</p>
-        <div class="scard-price" style="flex-direction:column;align-items:flex-start;gap:.3rem;">
-          <span class="scard-price-label">השקעה</span>
-          <div class="scard-price-multi">
-            4 מיילים &mdash; <strong>1,500 ש"ח</strong><br>
-            8 מיילים &mdash; <strong>2,650 ש"ח</strong><br>
-            12 מיילים &mdash; <strong>3,750 ש"ח</strong>
-          </div>
-        </div>
-        <a href="#contact" class="scard-cta">
-          אני צריכה מיילים שמוכרים
-          <svg viewBox="0 0 14 14"><path d="M2 12L12 2M12 2H5M12 2v7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div>
-    </div>
-
-    <div class="scard reveal d1">
-      <div class="scard-stripe drive"></div>
-      <div class="scard-body">
-        <div class="scard-label">ריטיינר מיילים חודשי</div>
-        <h3 class="scard-title">טייס אוטומטי</h3>
-        <p class="scard-tagline">שקט נפשי חודשי</p>
-        <p class="scard-desc">שירות חודשי קבוע של כתיבת מיילים מבריקים לרשימה שלך. אני כותבת, הלקוחות שלך קוראים, העסק שלך נושם.</p>
-        <div class="scard-price" style="flex-direction:column;align-items:flex-start;gap:.3rem;">
-          <span class="scard-price-label">השקעה חודשית</span>
-          <div class="scard-price-multi">
-            2 מיילים &mdash; <strong>700 ש"ח</strong><br>
-            4 מיילים &mdash; <strong>1,250 ש"ח</strong><br>
-            8 מיילים &mdash; <strong>2,350 ש"ח</strong>
-          </div>
-        </div>
-        <a href="#contact" class="scard-cta">
-          קחי ממני את עול הכתיבה
-          <svg viewBox="0 0 14 14"><path d="M2 12L12 2M12 2H5M12 2v7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div>
-    </div>
-
-    <div class="scard reveal d2">
-      <div class="scard-stripe drive"></div>
-      <div class="scard-body">
-        <div class="scard-label">קורסים דיגיטליים</div>
-        <h3 class="scard-title">בית ספר לנהיגה קריאייטיבית</h3>
-        <p class="scard-tagline">ללמוד להחזיק את ההגה</p>
-        <p class="scard-desc">קורסים פרקטיים שילמדו אותך לכתוב ולייצר קריאייטיב שאי אפשר להתעלם ממנו.</p>
-        <div class="scard-price" style="flex-direction:column;align-items:flex-start;gap:.3rem;">
-          <span class="scard-price-label">השקעה</span>
-          <div class="scard-price-multi">
-            קורס דיגיטלי &mdash; <strong>600 ש"ח</strong><br>
-            קורס חי בליווי קבוצתי &mdash; <strong>2,100 ש"ח</strong>
-          </div>
-        </div>
-        <a href="#contact" class="scard-cta">
-          אני רוצה ללמוד לעשות זאת בעצמי
-          <svg viewBox="0 0 14 14"><path d="M2 12L12 2M12 2H5M12 2v7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-
 <!-- ═══════════ CONTACT ═══════════ -->
 <section class="lost-section" id="contact">
   <div class="lost-inner">
@@ -872,21 +648,27 @@ const PLANS = {
     {
       dept: '🧠 SMART', stripe: 'smart',
       title: 'פגישת יעוץ',
-      desc: 'פגישה ממוקדת אחת לפתוח את הפלונטר ולצאת עם החלטות ברורות.',
+      tagline: 'פגישה אחת שמחזירה שליטה',
+      desc: 'נשב יחד שעה אחת, ננתח את מה שתקוע, ונצא עם החלטות ברורות שאפשר ליישם כבר מחר. בלי המשך חובה — רק תמונה ברורה.',
+      includes: ['פגישת זום ממוקדת של שעה', 'ניתוח מצב קיים + אבחון', '3 המלצות אסטרטגיות מדויקות', 'סיכום בכתב אחרי הפגישה'],
       price: '1,200', suffix: 'ש"ח',
       cta: 'אני צריכה כיוון מדויק'
     },
     {
       dept: '🚀 DRIVE', stripe: 'drive',
       title: 'פגישת פיצוח ורעיונאות',
-      desc: 'סיעור מוחות + מסמך רעיונות ואסטרטגיה מותאמים אישית. היישום עלייך.',
+      tagline: 'בוסט של השראה בפגישה אחת',
+      desc: 'שיחת סיעור מוחות שבסיומה את מקבלת מסמך מלא של רעיונות קריאייטיב, מסרים וקמפיינים מותאמים לעסק שלך. היישום עלייך.',
+      includes: ['פגישת זום של שעה', 'סיעור מוחות קריאייטיבי ממוקד', 'מסמך רעיונות + מסרים מוכנים לשימוש', '3 רעיונות לתוכן מוכנים'],
       price: '1,200', suffix: 'ש"ח',
       cta: 'תני לי בוסט של השראה'
     },
     {
       dept: '🟢 GO', stripe: 'go',
       title: 'מודעה / עיצוב',
-      desc: 'מודעה בודדת חדה כתער שעוצרת את הגלילה בפיד ועושה רושם.',
+      tagline: 'עיצוב אחד שעוצר את הגלילה',
+      desc: 'מודעה בודדת מעוצבת שמשדרת את המסר הנכון לקהל הנכון. מוכנה לפרסום ברשתות, עם כל הפורמטים שצריך.',
+      includes: ['עיצוב מודעה אחת מלא', '2 וריאציות צבע לבחירה', 'פורמטים לכל הרשתות (פיד, סטורי, ריל)', 'קובץ עריכה מסודר'],
       price: '2,500', suffix: 'ש"ח',
       cta: 'אני רוצה עיצוב מנצח'
     }
@@ -895,21 +677,27 @@ const PLANS = {
     {
       dept: '🧠 SMART', stripe: 'smart',
       title: 'תהליך ליווי — 8 מפגשים',
-      desc: '8 מפגשי עומק להפיכת החזון לפרקטיקה: מודל עסקי, מיצוב ואסטרטגיה.',
+      tagline: 'מפה שלמה לעסק יציב ורווחי',
+      desc: '8 מפגשי עומק שמכסים את כל מה שצריך: מודל עסקי, מיצוב, מחירים, קהל יעד ותוכנית שיווק שאפשר ליישם. בסוף התהליך — יש לך כיוון ברור.',
+      includes: ['8 מפגשי זום שבועיים (שעה כל אחד)', 'ניתוח שוק ומתחרות', 'אסטרטגיית מחירים ומיצוב', 'תוכנית שיווק שנתית מפורטת', 'מענה בין מפגשים בוואטסאפ', 'חומרי עבודה ותבניות'],
       price: '12,000', suffix: 'ש"ח',
       cta: 'בואי נתכנן את מסלול הנסיעה'
     },
     {
       dept: '🚀 DRIVE', stripe: 'drive',
       title: 'כתיבת סדרה — 4 מיילים',
-      desc: 'סדרה ממוקדת של מיילים עם מטרה אחת: למכור. פרויקט נקודתי עם סוף ברור.',
+      tagline: 'סדרה שמוכרת מהמייל הראשון',
+      desc: 'סדרת מיילים שמובילה את הקוראים מ"מעניין" ל"אני רוצה לקנות". כל מייל בנוי על הקודם וביחד הם יוצרים מסלול מכירה שמרגיש טבעי ואנושי.',
+      includes: ['4 מיילים כתובים ומוכנים לשליחה', 'שורות נושא — גרסת A+B לכל מייל', 'קריאות לפעולה ממוקדות', 'הנחיות תזמון ושליחה', 'עד סבב אחד של תיקונים'],
       price: '2,800', suffix: 'ש"ח',
       cta: 'אני צריכה מיילים שמוכרים'
     },
     {
       dept: '🟢 GO', stripe: 'go',
       title: 'מיתוג קומפלט',
-      desc: 'שפה ויזואלית מלאה: לוגו, צבעים, טיפוגרפיה ומדריך מותג שמשדר בידול.',
+      tagline: 'זהות ויזואלית שמשדרת ליגה אחרת',
+      desc: 'בנייה מאפס של שפה ויזואלית מלאה שמייצגת את מי שאת באמת. כשהלקוחה רואה אותך — היא כבר יודעת שאת זו שהיא מחפשת.',
+      includes: ['לוגו מלא + וריאציות שימוש', 'פלטת צבעים + טיפוגרפיה', 'מדריך מותג מלא (Brand Guide)', 'תבניות לרשתות החברתיות', 'קבצי עריכה (AI / Canva)'],
       price: '6,800', suffix: 'ש"ח',
       cta: 'תארזי לי את העסק מחדש'
     }
@@ -918,21 +706,27 @@ const PLANS = {
     {
       dept: '🧠 SMART', stripe: 'smart',
       title: 'חודשי — 2 פגישות + מענה שוטף',
-      desc: '2 פגישות בחודש ומענה לכל שאלה שעולה בדרך. שקט נפשי אמיתי.',
+      tagline: 'שקט נפשי שמתחדש כל חודש',
+      desc: 'כמו לקבל מנהלת שיווק פנימית בלי העלות הקבועה. שתי פגישות אסטרטגיות בחודש ומענה לכל שאלה שעולה בדרך — כדי שתמיד תדעי לאן את הולכת.',
+      includes: ['2 פגישות זום חודשיות (שעה כל אחת)', 'מענה בוואטסאפ תוך 24 שעות', 'סקירת קמפיינים וביצועים', 'עדכון אסטרטגיה לפי מה שקורה בשוק'],
       price: '1,800', suffix: 'ש"ח / חודש',
       cta: 'אני רוצה שקט חודשי'
     },
     {
       dept: '🚀 DRIVE', stripe: 'drive',
       title: 'כתיבת 3–4 מיילים בחודש',
-      desc: 'שירות חודשי קבוע של כתיבת מיילים מבריקים לרשימה שלך. אני כותבת, את מוכרת.',
+      tagline: 'ניוזלטר שכותב את עצמו (כמעט)',
+      desc: 'כל חודש הרשימה שלך מקבלת מיילים שמחממים, מעוררים ומוכרים — בלי שתצטרכי לחשוב על מה לכתוב. את מאשרת, אני כותבת, הלקוחות קוראות.',
+      includes: ['3–4 מיילים כתובים ומוכנים לשליחה', 'שורות נושא מרובות לבחירה', 'תיאום תוכן חודשי קצר', 'דוח ביצועים חודשי'],
       price: '1,800', suffix: 'ש"ח / חודש',
       cta: 'קחי ממני את עול הכתיבה'
     },
     {
       dept: '🟢 GO', stripe: 'go',
       title: 'מודעה / עיצוב לחודש',
-      desc: 'ריטיינר עיצוב חודשי — נראות יציבה ומקצועית מבלי לשבור את הראש.',
+      tagline: 'נראות קבועה בלי כאב ראש',
+      desc: 'ריטיינר עיצוב חודשי שמבטיח שהפיד שלך תמיד נראה מקצועי ומרשים. אני מעצבת, את מפרסמת, והעסק שלך נראה כמו מותג.',
+      includes: ['עד 4 מודעות מעוצבות בחודש', '2 וריאציות צבע לכל מודעה', 'כל הפורמטים (פיד, סטורי, ריל)', 'זמן תגובה של עד 48 שעות'],
       price: '1,200', suffix: 'ש"ח / חודש',
       cta: 'תעשי לי יפה בפיד כל חודש'
     }
@@ -942,14 +736,23 @@ const PLANS = {
 function renderPlanCards(plan) {
   const container = document.getElementById('plan-cards');
   container.innerHTML = '';
+  const checkSvg = `<svg viewBox="0 0 10 8"><polyline points="1 4 3.5 6.5 9 1" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
   PLANS[plan].forEach(item => {
+    const includesHtml = item.includes.map(inc =>
+      `<li class="pcard-include-item">
+        <span class="pcard-check">${checkSvg}</span>
+        <span>${inc}</span>
+      </li>`
+    ).join('');
     container.insertAdjacentHTML('beforeend', `
       <div class="pcard">
         <div class="pcard-stripe ${item.stripe}"></div>
         <div class="pcard-dept">${item.dept}</div>
         <div class="pcard-body">
           <h3 class="pcard-title">${item.title}</h3>
+          <p class="pcard-tagline">${item.tagline}</p>
           <p class="pcard-desc">${item.desc}</p>
+          <ul class="pcard-includes">${includesHtml}</ul>
           <div class="pcard-price">
             <span class="pcard-price-label">השקעה</span>
             <div class="pcard-price-row">
